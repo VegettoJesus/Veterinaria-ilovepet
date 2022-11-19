@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head th:replace="layout :: head">
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <!--DETALLE DEL USUARIO-->
+    <main>
+        <div class="bg-detalle-usuario">
+            <div class="p-3 justify-content-center align-items-center">
+                <div class="card mb-3 shadow-lg p-3 mb-5 bg-body rounded position-absolute top-50 start-50 translate-middle"
+                    style="max-width: 700px;">
+                    <div class="row g-0">
+                        <div class="col-md-4 ">
+                            <img th:if="${empleado.sexo == 'F'}" src="../imagenes/perfil-mujer.jpg" class="img-fluid rounded-start position-relative top-50 start-50 translate-middle"
+                            alt="perfil">
+                            <img th:if="${empleado.sexo == 'M'}" src="../imagenes/perfil-hombre.jpg" class="img-fluid rounded-start position-relative top-50 start-50 translate-middle"
+                            alt="perfil">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body pe-3">
+                                <h4 class="card-title text-center pb-3 fs-2 text-diseño-detalle" th:text="${titulo}"></h4>
+                                <div class="text-card">
+                                    <div class="d-flex position-relative">
+                                        <div class="col-md-5 position-relative me-2">
+                                            <label for="validationTooltip02" class="form-label text-diseño-detalle">DNI:</label>
+                                            <label class="estilo-letra-mascota" th:text="${empleado.dni}" ></label>
+                                        </div>
+                                        <div class="col-md-5 position-relative">
+                                            <label for="validationTooltip03" class="form-label text-diseño-detalle">Celular:</label>
+                                            <label class="estilo-letra-mascota" th:text="${empleado.celular}" ></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 position-relative">
+                                        <label for="validationTooltip04" class="form-label text-diseño-detalle">Dirección:</label>
+                                        <label class="estilo-letra-mascota" th:text="${empleado.direccion}" ></label>
+                                    </div>
+                                    <div class="col-md-10 position-relative mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label text-diseño-detalle">Correo:</label>
+                                        <label class="estilo-letra-mascota" th:text="${empleado.email}" ></label>
+                                    </div>
+                                    <div class="col-md-10 position-relative">
+                                        <label for="exampleFormControlInput2" class="text-diseño-detalle" >Fecha de
+                                            Nacimiento:</label>
+                                        <label class="estilo-letra-mascota" th:text="${empleado.fecha_Nacimiento}" ></label>
+                                    </div>
+                                    <div class="d-flex position-relative">
+                                        <div class="col-md-5 position-relative me-2">
+                                            <label for="validationTooltip05" class="form-label text-diseño-detalle">Sexo:</label>
+                                            <label class="estilo-letra-mascota" th:text="${empleado.sexo}" ></label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex position-relative">
+                                        <div class="col-md-5 position-relative me-2">
+                                            <label for="validationTooltip07" class="form-label text-diseño-detalle">Usuario:</label>
+                                            <label class="estilo-letra-mascota" th:text="${empleado.usuario}" ></label>
+                                        </div>
+                                    </div>
+                                    <a type="submit" id="btn-regresar" th:href="@{/gestionAdmin}" class="btn btn-fondo-rc text-light">Regresar</a>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+    </main>
+
+    <footer th:replace="layout :: footer"></footer>
+</body>
+
+</html>

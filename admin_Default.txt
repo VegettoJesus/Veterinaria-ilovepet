@@ -1,0 +1,3 @@
+INSERT INTO rol (nombre) VALUES ("administrador");
+INSERT INTO empleado_login (apellido,celular,direccion,dni,email,fecha_nacimiento,nombre,password,sexo,usuario) VALUES ("admin",0,"veterinaria",0,"administrador@hotmail.com",'1999/01/01',"admin","$2a$10$AT2h6MsL.XPFvEyjLayLLOtXdpOAIzDln0bQFkKGNHrtcBcLGcoLy","M","Admin");
+INSERT INTO usuario_roles (usuario_id, rol_id) VALUES (1,1);

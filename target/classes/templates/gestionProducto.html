@@ -1,0 +1,99 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head">
+    <meta charset="utf-8">
+</head>
+
+<body class="bg-detalle-usuario" onload="modal()">
+    <div class="container">
+        <div th:if="${success != null}" class="alert alert-primary alert-dismissible fade show">
+            [[${success}]]>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="container">
+        <div th:if="${warning != null}" class="alert alert-warning alert-dismissible fade show">
+            [[${warning}]]>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="container">
+        <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show">
+            [[${error}]]>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="container">
+        <div th:if="${info != null}" class="alert alert-info alert-dismissible fade show">
+            [[${info}]]>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <main class="d-flex">
+        <div th:replace="layout :: SidebarAdmin"></div>
+
+
+
+        <!--TABLA DONDE SE VERÁN LOS PRODUCTO DE LA VETERINARIA-->
+
+
+        <div class="py-4 me-auto  ms-auto" sec:authorized ="isAuthenticated()">
+            <div class="card table-hover">
+                <div class="card-header degradadoFondo ">GESTION DE PRODUCTO</div>
+                <div class="card-body table-fondo">
+                    <div class="col-12 text-center">
+                        <a id="btnRegistrarProducto" th:href="@{/formularioProducto}" class="btn btn-primary me-5 estilo-letra-mascota" type="submit"><img class="pe-1"
+                                src="../imagenes/newProducto.png" alt="huella" height="30" width="30">Registrar Producto</a>
+                        <a id="btnCategoria" th:href="@{/GestionCategoria}" class="btn btn-success me-5 estilo-letra-mascota" type="submit"><img class="pe-1"
+                            src="../imagenes/categoriaProd.png" alt="huella" height="30" width="30">Gestion Categoria</a>
+                    </div>
+                    <div>
+                        <table class="table table-fondo table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center text-black estilo-letra-mascota">Codigo</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Nombre</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Marca</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Ruc Proveedor</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Nombre Proveedor</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Fecha Ingreso</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Categoria</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Stock</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Precio</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="producto : ${producto}">
+                                    <td class=" text-black estilo-letra-mascota" th:text="${producto.codigo}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${producto.nombre}"></td>
+                                    <td class="text-black estilo-letra-mascota" th:text="${producto.marca}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${producto.ruc_proveedor}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${producto.nombre_Proveedor}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${#temporals.format(producto.fecha_Registro,'dd/MM/YYYY hh:mm a')}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${producto.categoria.nombre}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${producto.stock}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${producto.precio}"></td>
+                                    <td>
+                                        <a id="btn-eliminar-producto" onclick="return Eliminar(this)" th:href="@{/eliminarProducto/} + ${producto.id}" class="btn btn-danger me-1"
+                                            type="submit"><img src="../imagenes/eliminar.png" alt="huella" height="30"
+                                                width="30"></a>
+                                        <a id="btnEditarProducto" th:href="@{/formularioProducto/} + ${producto.id}"
+                                            class="btn btn-warning me-1" type="submit"><img src="../imagenes/editar.png"
+                                                alt="huella" height="30" width="30"></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav th:replace="paginator-nav :: paginator"></nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="layout :: footer"></footer>
+</body>
+
+</html>

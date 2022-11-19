@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head">
+    <meta charset="utf-8">
+</head>
+
+<body class="bg-detalle-usuario">
+
+    <div class="wrapper">
+        <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0 p-5 ">
+            <div class="container-fluid">
+                <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2">
+                    <div class="col mx-auto">
+                        <div class="card shadow-lg p-3 mb-5 bg-body rounded border border-light p-3">
+                            <div class="card-body p-3 rounded text-center">
+                                <img src="../imagenes/citas-form.png" alt="citas-form" height="150" width="150">
+                                <h3 class="text-diseño-rc text-center" th:text="${titulo}"></h3>
+                            </div>
+                            <hr class="border border-light" />
+                            <form th:action="@{/formularioCitas}" method="post" th:object="${citas}" class="row g-3">
+                                <input type="hidden" th:field="*{id}" th:value="${citas.id}" />
+                                <div  class="col-md-4 position-relative">
+                                    <label class="form-label text-diseño-rc2">Encargado</label>
+                                    <select class="form-select form-select mb-3" th:field="*{empleado}">
+                                        <option value="" selected="selected" >-Seleccionar Encargado-</option>
+                                        <option th:each="empleado : ${empleado}" th:if="${empleado.id > 1}" th:value="${empleado.id}" th:text="${empleado.nombre}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 position-relative">
+                                    <label class="form-label text-diseño-rc2">Propietario</label>
+                                    <select class="form-select form-select mb-3" th:field="*{propietario}">
+                                        <option value="" selected="selected" >-Seleccionar Propietario-</option>
+                                        <option th:each="propietario : ${propietario}" th:value="${propietario.id}" th:text="${propietario.nombre}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 position-relative">
+                                    <label class="form-label text-diseño-rc2">Mascota</label>
+                                    <select class="form-select form-select mb-3" th:field="*{mascota}">
+                                        <option value="" selected="selected" >-Seleccionar Mascota-</option>
+                                        <option th:each="mascota : ${mascota}" th:value="${mascota.id}" th:text="${mascota.nombre}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 position-relative">
+                                    <label class="form-label text-diseño-rc2">Servicio</label>
+                                    <select class="form-select form-select mb-3" th:field="*{servicio}">
+                                        <option value="" selected="selected" >-Seleccionar Servicio-</option>
+                                        <option th:each="servicio : ${servicio}" th:value="${servicio.id}" th:text="${servicio.descripcion}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 position-relative">
+                                    <label class="form-label text-diseño-rc2">Fecha de Cita</label>
+                                    <input type="date" class="form-control" value="2017-06-01"  th:field="*{fecha_cita}"
+                                        placeholder="Ingresar Fecha Cita" required>
+                                </div>
+
+                                <div class="col-md-4 position-relative">
+                                    <label for="validationTooltip04" class="form-label text-diseño-rc2">Horario Cita</label>
+                                    <select class="form-select form-select mb-3" th:field="*{hora_cita}">
+                                        <option value="" selected="selected" >-Seleccionar Horario-</option>
+                                        <option selected value="8: 00 - 9: 00 a.m.">8: 00 - 9: 00 a.m.</option>
+                                        <option selected value="9: 00 - 10: 00 a.m.">9: 00 - 10: 00 a.m.</option>
+                                        <option selected value="10: 00 - 11: 00 a.m.">10: 00 - 11: 00 a.m.</option>
+                                        <option selected value="11: 00 a.m. - 12 p.m.">11: 00 a.m. - 12 p.m.</option>
+                                        <option selected value="12: 00 - 1: 00p.m.">12: 00 - 1: 00p.m.</option>
+                                        <option selected value="1: 00 - 2: 00 p.m.">1: 00 - 2: 00 p.m.</option>
+                                        <option selected value="2: 00 - 3: 00 p.m.">2: 00 - 3: 00 p.m.</option>
+                                        <option selected value="3: 00 - 4: 00 p.m.">3: 00 - 4: 00 p.m.</option>
+                                        <option selected value="4: 00 - 5: 00 p.m.">4: 00 - 5: 00 p.m.</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4 position-relative">
+                                    <label class="form-label text-diseño-rc2">Estado</label>
+                                    <select class="form-select form-select mb-3" th:field="*{Estado}">
+                                        <option selected value="Registrado">Registrado</option>
+                                        <option th:if="${citas.id != null}" selected value="Cancelado">Cancelado</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-12 d-grid">
+                                    <button type="submit" id="btn-registrar" class="btn btn-fondo-rc text-light">REGISTRAR</button>
+                                </div>
+                                <div class="col-12 d-grid">
+                                    <a th:href="@{/gestionCitas}" type="submit" id="btn-volver"
+                                        class="btn btn-fondo-rc text-light">VOLVER</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer th:replace="layout :: footer"></footer>
+</body>
+
+</html>

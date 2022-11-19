@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head">
+    <meta charset="utf-8">
+</head>
+
+<body class="bg-detalle-usuario">
+
+    <div class="wrapper">
+        <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0 p-5 ">
+            <div class="container-fluid">
+                <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2">
+                    <div class="col mx-auto">
+                        <div class="card shadow-lg p-3 mb-5 bg-body rounded border border-light p-3">
+                            <div class="card-body p-4 rounded text-center">
+                                <img src="../imagenes/roles.png" alt="registrar-rol" height="150"
+                                    width="150">
+                                <h1 class="fs-1 text-diseño-rc2 text-center" th:text="${titulo}"></h1>
+                            </div>
+                            <hr class="border border-light" />
+                            <form th:action="@{/formularioRol}" method="post" th:object="${rol}"
+                                class="row g-3">
+                                <input type="hidden" th:field="*{id}" th:value="${rol.id}" />
+                                <div class="col-md-3 position-relative  translate-middle">
+                                    <label class="text-diseño-rc2">Nombre</label>
+                                    <input th:field="*{nombre}" id="nombre" type="text" class="form-control" 
+                                        placeholder="Ingrese Nombre" required autofocus="autofocus">
+                                </div>
+                                <div class="col-12 d-grid">
+                                    <button type="submit" id="btn-registrar" class="btn btn-fondo-rc text-light">REGISTRAR</button>
+                                </div>
+                                <div class="col-12 d-grid">
+                                    <a type="submit" id="btn-volverRol" th:href="@{/GestionRol}" class="btn btn-fondo-rc text-light">VOLVER</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer th:replace="layout :: footer"></footer>
+</body>
+
+</html>

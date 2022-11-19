@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head">
+  <meta charset="utf-8">
+</head>
+<body class="bg-detalle-usuario">
+  <main class="d-flex">
+
+    <div th:replace="layout :: SidebarAdmin"></div>
+
+    <!--MENU PRODUCTOS-->
+    <div class="bg-detalle-usuario ">
+      <div class="bg-menuProd rounded-pill p-3 my-5">
+        <h1 class="text-center text-diseño-mp">Menú Servicio</h1>
+      </div>
+
+      <div class="card-group px-3">
+        <div class="card px-5 me-3 pt-5 border border-menuProd border-5">
+          <a id="btnCatalogoServicio" th:href="@{/catalogoServicios}"><img src="../imagenes/catalogo-servicio.png" class="card-img-top card-animacion" alt="catalogo"
+              width="130px" height="250px">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title text-center text-diseño-mpc">Catálogo</h5>
+          </div>
+        </div>
+        <div class="card px-5 pt-5 me-3 border border-menuProd border-5">
+          <a id="btnGestionarServicio" th:href="@{/gestionServicio}"><img src="../imagenes/gestionar-servicio.png"
+              class="card-img-top card-animacion" alt="gestionar-servicio" width="150px" height="230px">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title text-center text-diseño-mpc">Gestionar Servicios</h5>
+          </div>
+        </div>
+        <div class="card px-5 border border-menuProd border-5">
+          <a href="#"><img src="../imagenes/realizar-venta.png" class="card-img-top card-animacion" alt="realizar-venta"
+              width="150px" height="280px">
+          </a>
+
+          <div class="card-body">
+            <h5 class="card-title text-center text-diseño-mpc">Realizar Ventas</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer th:replace="layout :: footer"></footer>
+</body>
+
+</html>

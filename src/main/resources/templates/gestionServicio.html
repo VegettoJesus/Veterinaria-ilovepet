@@ -1,0 +1,82 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head">
+    <meta charset="utf-8">
+</head>
+
+<body class="bg-detalle-usuario" onload="modal()">
+    <div class="container">
+        <div th:if="${success != null}" class="alert alert-primary alert-dismissible fade show">
+            [[${success}]]>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="container">
+        <div th:if="${warning != null}" class="alert alert-warning alert-dismissible fade show">
+            [[${warning}]]>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="container">
+        <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show">
+            [[${error}]]>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="container">
+        <div th:if="${info != null}" class="alert alert-info alert-dismissible fade show">
+            [[${info}]]>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <main class="d-flex">
+        <div th:replace="layout :: SidebarAdmin"></div>
+
+        <!--TABLA DONDE SE VERÁN LOS SERVICIO DE LA VETERINARIA-->
+
+        <div class="py-4 me-auto  ms-auto">
+            <div class="card table-hover">
+                <div class="card-header degradadoFondo">GESTION DE SERVICIO</div>
+                <div class="card-body table-fondo">
+                    <div class="col-12 text-center">
+                        <a id="btnRegistrarServicio" th:href="@{/formularioServicio}" class="btn btn-primary me-5 estilo-letra-mascota" type="submit"><img class="pe-1"
+                                src="../imagenes/newServicio.png" alt="newServicio" height="30" width="30">Registrar Servicio</a>
+                    </div>
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center text-black estilo-letra-mascota">Descripcion</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Precio</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Tipo de Mascota</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="servicio : ${servicio}">
+                                    <td class=" text-black estilo-letra-mascota" th:text="${servicio.descripcion}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${servicio.precio}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${servicio.tipo_mascota}"></td>
+                                    <td>
+                                        <a onclick="return Eliminar(this)" id="btn-eliminar-servicio" th:href="@{/eliminarServicio/} + ${servicio.id}" class="btn btn-danger me-1"
+                                            type="submit"><img src="../imagenes/eliminar.png" alt="huella" height="30"
+                                                width="30"></a>
+                                        <a id="editarServ" th:href="@{/formularioServicio/} + ${servicio.id}"
+                                            class="btn btn-warning me-1" type="submit"><img src="../imagenes/editar.png"
+                                                alt="huella" height="30" width="30"></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav th:replace="paginator-nav :: paginator"></nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="layout :: footer"></footer>
+</body>
+
+</html>
