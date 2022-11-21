@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import java.util.Map;
 
@@ -52,7 +52,7 @@ public class ServicioController {
     }
 
     @GetMapping("/formularioServicio")
-    public String RegistrarServicio(Map<String,Object> modelo){
+    public String registrarServicio(Map<String,Object> modelo){
         Servicio servicio = new Servicio();
         modelo.put("servicio", servicio);
         modelo.put("titulo","Registrar Servicio");

@@ -64,9 +64,9 @@
                                     <td class=" text-black estilo-letra-mascota" th:text="${citas.propietario.nombre}"></td>
                                     <td class=" text-black estilo-letra-mascota" th:text="${citas.mascota.nombre}"></td>
                                     <td class=" text-black estilo-letra-mascota" th:text="${citas.servicio.descripcion}"></td>
-                                    <td class=" text-black estilo-letra-mascota" th:text="${#temporals.format(citas.fecha_registro,'dd/MM/YYYY hh:mm a')}"></td>
-                                    <td class=" text-black estilo-letra-mascota" th:text="${citas.fecha_cita}"></td>
-                                    <td class=" text-black estilo-letra-mascota" th:text="${citas.hora_cita}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${#temporals.format(citas.fechaRegistro,'dd/MM/YYYY hh:mm a')}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${citas.fechaCita}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${citas.horaCita}"></td>
                                     <td class=" text-black estilo-letra-mascota" th:text="${citas.Estado}"></td>
                                     <td class="d-flex">
                                         <p class="text-black estilo-letra-mascota p-2" th:if="${citas.Estado == 'Atendido'}">Ninguna Accion</p>

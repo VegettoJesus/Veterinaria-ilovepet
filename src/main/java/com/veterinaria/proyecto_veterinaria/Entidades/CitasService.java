@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 
 import java.util.List;
@@ -13,5 +13,5 @@ public interface CitasService {
     public Citas findOne(long id);
     public void delete(Long id);
     public List<Citas> ordenarDesc();
-    public List<Citas> ListaAtendidos();
+    public List<Citas> listaAtendidos();
 }

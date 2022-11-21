@@ -18,7 +18,11 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 
-public class PropietarioServiceImplTest {
+import com.veterinaria.proyecto_veterinaria.entidades.Propietario;
+import com.veterinaria.proyecto_veterinaria.entidades.PropietarioRepository;
+import com.veterinaria.proyecto_veterinaria.entidades.PropietarioServiceImpl;
+
+class PropietarioServiceImplTest {
   /*Proviene del PropietarioServiceImpl porque usa el repositorio */
   @Mock
   private PropietarioRepository propietarioRepository;

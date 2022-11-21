@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

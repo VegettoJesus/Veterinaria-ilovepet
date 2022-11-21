@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +23,7 @@ public class Propietario {
     @NotNull
     private Long celular;
     @NotEmpty
-    private String medio_Pago;
+    private String medioPago;
     @NotEmpty
     private String correo;
     public Long getId() {
@@ -50,11 +50,11 @@ public class Propietario {
     public void setCelular(Long celular) {
         this.celular = celular;
     }
-    public String getMedio_Pago() {
-        return medio_Pago;
+    public String getMedioPago() {
+        return medioPago;
     }
-    public void setMedio_Pago(String medio_Pago) {
-        this.medio_Pago = medio_Pago;
+    public void setMedioPago(String medioPago) {
+        this.medioPago = medioPago;
     }
     public String getCorreo() {
         return correo;
@@ -63,22 +63,23 @@ public class Propietario {
         this.correo = correo;
     }
     public Propietario(Long id, @NotEmpty String nombre, @NotEmpty String direccion, @NotNull Long celular,
-            @NotEmpty String medio_Pago, @NotEmpty String correo) {
+            @NotEmpty String medioPago, @NotEmpty String correo) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.celular = celular;
-        this.medio_Pago = medio_Pago;
+        this.medioPago = medioPago;
         this.correo = correo;
     }
     public Propietario(@NotEmpty String nombre, @NotEmpty String direccion, @NotNull Long celular,
-            @NotEmpty String medio_Pago, @NotEmpty String correo) {
+            @NotEmpty String medioPago, @NotEmpty String correo) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.celular = celular;
-        this.medio_Pago = medio_Pago;
+        this.medioPago = medioPago;
         this.correo = correo;
     }
     public Propietario() {
     }
+    
 }

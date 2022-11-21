@@ -18,9 +18,9 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
 public class EmpleadoExporterPDF {
-    private List<Empleado_Login> listaEmpleados;
+    private List<empleadoLogin> listaEmpleados;
 
-    public EmpleadoExporterPDF(List<Empleado_Login> listaEmpleados) {
+    public EmpleadoExporterPDF(List<empleadoLogin> listaEmpleados) {
         this.listaEmpleados = listaEmpleados;
     }
     
@@ -55,12 +55,12 @@ public class EmpleadoExporterPDF {
 
     }
     private void escribirDatosDeLaTabla(PdfPTable tabla){
-        for(Empleado_Login empleado : listaEmpleados){
+        for(empleadoLogin empleado : listaEmpleados){
             tabla.addCell(String.valueOf(empleado.getId()));
             tabla.addCell(String.valueOf(empleado.getDni()));
             tabla.addCell(empleado.getNombre());
             tabla.addCell(empleado.getApellido());
-            tabla.addCell(empleado.getFecha_Nacimiento().toString());
+            tabla.addCell(empleado.getFechaNacimiento().toString());
             tabla.addCell(String.valueOf(empleado.getCelular()));
             tabla.addCell(empleado.getEmail());
             tabla.addCell(empleado.getDireccion());

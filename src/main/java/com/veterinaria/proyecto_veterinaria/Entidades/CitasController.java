@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import java.util.Map;
 
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.veterinaria.proyecto_veterinaria.Entidad_usuario.Empleado_Service;
+import com.veterinaria.proyecto_veterinaria.Entidad_usuario.EmpleadoService;
 import com.veterinaria.proyecto_veterinaria.paginacion.PageRender;
 
 @Controller
@@ -28,7 +28,7 @@ public class CitasController {
     private CitasService citasService;
 
     @Autowired
-    private Empleado_Service empleado_Service;
+    private EmpleadoService empleadoService;
 
     @Autowired
     private MascotaService mascotaService;
@@ -61,7 +61,7 @@ public class CitasController {
             flash.addFlashAttribute("error","El ID de la atencion no puede ser cero");
             return "redirect:/gestionAtencion";
         }
-        modelo.put("empleado",empleado_Service.findAll());
+        modelo.put("empleado",empleadoService.findAll());
         modelo.put("mascota",mascotaService.findAll());
         modelo.put("servicio",servicioService.findAll());
         modelo.put("propietario",propietarioService.findAll());
@@ -90,9 +90,9 @@ public class CitasController {
     }
 
     @GetMapping("/formularioCitas")
-    public String RegistrarCitas(Map<String,Object> modelo){
+    public String registrarCitas(Map<String,Object> modelo){
         Citas citas = new Citas();
-        modelo.put("empleado",empleado_Service.findAll());
+        modelo.put("empleado",empleadoService.findAll());
         modelo.put("mascota",mascotaService.findAll());
         modelo.put("servicio",servicioService.findAll());
         modelo.put("propietario",propietarioService.findAll());
@@ -127,7 +127,7 @@ public class CitasController {
             flash.addFlashAttribute("error","El ID de la cita no puede ser cero");
             return "redirect:/gestionCitas";
         }
-        modelo.put("empleado",empleado_Service.findAll());
+        modelo.put("empleado",empleadoService.findAll());
         modelo.put("mascota",mascotaService.findAll());
         modelo.put("servicio",servicioService.findAll());
         modelo.put("propietario",propietarioService.findAll());

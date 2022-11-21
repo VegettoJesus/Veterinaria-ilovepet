@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

@@ -17,11 +17,16 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
+
+import com.veterinaria.proyecto_veterinaria.entidades.Mascota;
+import com.veterinaria.proyecto_veterinaria.entidades.MascotaRepository;
+import com.veterinaria.proyecto_veterinaria.entidades.MascotaServiceImpl;
+
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 
 
 
-public class MascotaServiceImplTest {
+class MascotaServiceImplTest {
     @Mock
     private MascotaRepository mascotaRepository;
 

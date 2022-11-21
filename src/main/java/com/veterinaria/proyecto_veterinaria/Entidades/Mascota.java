@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
@@ -34,7 +34,7 @@ public class Mascota {
     @NotNull
     private float estatura;
 
-    private LocalDateTime fecha_registro = LocalDateTime.now();
+    private LocalDateTime fechaRegistro = LocalDateTime.now();
 
     @NotEmpty
     private String Sexo;
@@ -96,15 +96,13 @@ public class Mascota {
     public void setEstatura(float estatura) {
         this.estatura = estatura;
     }
-
-    public LocalDateTime getFecha_registro() {
-        return fecha_registro;
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setFecha_registro(LocalDateTime fecha_registro) {
-        this.fecha_registro = fecha_registro;
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
-
     public String getSexo() {
         return Sexo;
     }
@@ -139,11 +137,11 @@ public class Mascota {
 
     @PrePersist
     public void asignarFechaRegistro(){
-        fecha_registro = LocalDateTime.now();
+        fechaRegistro = LocalDateTime.now();
     }
     
     public Mascota(Long id, @NotEmpty String nombre, @NotEmpty String especie, @NotEmpty String raza,
-            @NotNull Integer edad, @NotNull float estatura, LocalDateTime fecha_registro, @NotEmpty String sexo,
+            @NotNull Integer edad, @NotNull float estatura, LocalDateTime fechaRegistro, @NotEmpty String sexo,
             @NotEmpty String color, @NotNull float peso, Propietario propietario) {
         this.id = id;
         this.nombre = nombre;
@@ -151,7 +149,7 @@ public class Mascota {
         this.raza = raza;
         this.edad = edad;
         this.estatura = estatura;
-        this.fecha_registro = fecha_registro;
+        this.fechaRegistro = fechaRegistro;
         Sexo = sexo;
         this.color = color;
         this.peso = peso;
@@ -159,14 +157,14 @@ public class Mascota {
     }
 
     public Mascota(@NotEmpty String nombre, @NotEmpty String especie, @NotEmpty String raza, @NotNull Integer edad,
-            @NotNull float estatura, LocalDateTime fecha_registro, @NotEmpty String sexo, @NotEmpty String color,
+            @NotNull float estatura, LocalDateTime fechaRegistro, @NotEmpty String sexo, @NotEmpty String color,
             @NotNull float peso, Propietario propietario) {
         this.nombre = nombre;
         this.especie = especie;
         this.raza = raza;
         this.edad = edad;
         this.estatura = estatura;
-        this.fecha_registro = fecha_registro;
+        this.fechaRegistro = fechaRegistro;
         Sexo = sexo;
         this.color = color;
         this.peso = peso;
@@ -180,6 +178,8 @@ public class Mascota {
     public String toString() {
         return nombre;
     }
+
+    
 
     
 

@@ -26,8 +26,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lowagie.text.DocumentException;
-import com.veterinaria.proyecto_veterinaria.Entidades.Rol;
-import com.veterinaria.proyecto_veterinaria.Entidades.RolService;
+import com.veterinaria.proyecto_veterinaria.entidades.Rol;
+import com.veterinaria.proyecto_veterinaria.entidades.RolService;
 import com.veterinaria.proyecto_veterinaria.paginacion.PageRender;
 
 
@@ -35,19 +35,19 @@ import com.veterinaria.proyecto_veterinaria.paginacion.PageRender;
 public class EmpleadoController {
      
     @Autowired
-    private Empleado_Service empleado_Service;
+    private EmpleadoService empleado_Service;
 
     @Autowired
     private RolService rolservice;
 
     @GetMapping({"/","/login",""})
-    public String IniciarSesion(){
+    public String iniciarSesion(){
         return "login";
     }
 
     @GetMapping("/detalleEmpleado/{id}")
     public String verDetallesDelEmpleado(@PathVariable(value = "id") Long id, Map<String, Object> modelo,RedirectAttributes flash){
-        Empleado_Login empleado = empleado_Service.findOne(id);
+        empleadoLogin empleado = empleado_Service.findOne(id);
         if(empleado == null){
             flash.addFlashAttribute("error","El empleado no existe en la base de datos");
             return "redirect:/gestionAdmin";
@@ -62,8 +62,8 @@ public class EmpleadoController {
     @GetMapping("/gestionAdmin")
     public String listarEmpleados(@Param("buscar") String buscar,@RequestParam(name = "page",defaultValue = "0")int page, Model model){
         Pageable pageRequest = PageRequest.of(page,7);
-        Page<Empleado_Login> empleados = empleado_Service.findAll(pageRequest);
-        PageRender<Empleado_Login> pageRender = new PageRender<>("/gestionAdmin",empleados);
+        Page<empleadoLogin> empleados = empleado_Service.findAll(pageRequest);
+        PageRender<empleadoLogin> pageRender = new PageRender<>("/gestionAdmin",empleados);
         model.addAttribute("empleados",empleados);
         model.addAttribute("page",pageRender);
         model.addAttribute("buscar", buscar);
@@ -72,8 +72,8 @@ public class EmpleadoController {
     }
  
     @GetMapping("/formularioEmpleado")
-    public String RegistrarEmpleado(Map<String,Object> modelo){
-        Empleado_Login empleado = new Empleado_Login();
+    public String registrarEmpleado(Map<String,Object> modelo){
+        empleadoLogin empleado = new empleadoLogin();
         modelo.put("rol",rolservice.findAll());
         modelo.put("empleado", empleado);
         modelo.put("titulo","Registrar Empleado");
@@ -81,7 +81,7 @@ public class EmpleadoController {
     }
 
     @PostMapping("/formularioEmpleado")
-    public String guardarEmpleado(@Valid Empleado_Login empleado,BindingResult result,Model modelo, RedirectAttributes flash, SessionStatus status){  
+    public String guardarEmpleado(@Valid empleadoLogin empleado,BindingResult result,Model modelo, RedirectAttributes flash, SessionStatus status){  
         if(result.hasErrors()){
             modelo.addAttribute("titulo", "Registrar Empleado");
             return "formularioEmpleado";
@@ -95,7 +95,7 @@ public class EmpleadoController {
 
     @GetMapping("/formularioEmpleado/{id}")
     public String editarEmpleado(@PathVariable(value = "id") Long id, Map<String,Object> modelo, RedirectAttributes flash){
-        Empleado_Login empleado = null;
+        empleadoLogin empleado = null;
         if(id > 0){
             empleado = empleado_Service.findOne(id);
             if(empleado == null){
@@ -131,7 +131,7 @@ public class EmpleadoController {
 
         response.setHeader(cabecera, valor);
 
-        List<Empleado_Login> empleados = empleado_Service.findAll();
+        List<empleadoLogin> empleados = empleado_Service.findAll();
         EmpleadoExporterPDF exporter = new EmpleadoExporterPDF(empleados);
         exporter.exportar(response);
     }

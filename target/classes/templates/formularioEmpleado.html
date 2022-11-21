@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="col-md-4 position-relative">
                                     <label class="form-label text-diseño-rc2">Fecha Nacimiento</label>
-                                    <input type="date" class="form-control" th:field="*{fecha_Nacimiento}"
+                                    <input type="date" class="form-control" th:field="*{fechaNacimiento}"
                                         required autofocus="autofocus">
                                 </div>
 
@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="col-md-4 position-relative">
                                     <label class="form-label text-diseño-rc2">Rol</label>
-                                    <select id="rol" class="form-select" th:field="*{tipo_rol}">
+                                    <select id="rol" class="form-select" th:field="*{tipoRol}">
                                         <option value="" selected="selected" >-Seleccionar Rol-</option>
                                         <option th:each="rol : ${rol}" th:value="${rol.id}" th:text="${rol.nombre}"></option>
                                     </select>

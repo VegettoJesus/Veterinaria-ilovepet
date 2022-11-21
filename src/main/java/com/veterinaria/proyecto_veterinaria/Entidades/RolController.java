@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import java.util.Map;
 
@@ -36,7 +36,7 @@ public class RolController {
     }
     
     @GetMapping("/formularioRol")
-    public String RegistrarRoles(Map<String,Object> modelo){
+    public String registrarRoles(Map<String,Object> modelo){
         Rol rol = new Rol();
         modelo.put("rol", rol);
         modelo.put("titulo","Registrar Rol");

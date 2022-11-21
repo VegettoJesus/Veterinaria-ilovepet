@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -79,7 +79,7 @@ public class MascotaController {
     }
 
     @GetMapping("/formularioMascota")
-    public String RegistrarMascota(Map<String,Object> modelo){
+    public String registrarMascota(Map<String,Object> modelo){
         Mascota mascota = new Mascota();
         modelo.put("listaPropietario",propietarioService.findAll());
         modelo.put("mascota", mascota);
@@ -138,7 +138,7 @@ public class MascotaController {
 
         response.setHeader(cabecera, valor);
 
-        List<Citas> citas = citasService.ListaAtendidos();
+        List<Citas> citas = citasService.listaAtendidos();
         HistorialExporterPDF exporter = new HistorialExporterPDF(citas,id);
         exporter.exportar(response);
     }

@@ -20,7 +20,11 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 
-public class CategoriaServiceImplTest {
+import com.veterinaria.proyecto_veterinaria.entidades.Categoria;
+import com.veterinaria.proyecto_veterinaria.entidades.CategoriaRepository;
+import com.veterinaria.proyecto_veterinaria.entidades.CategoriaServiceImpl;
+
+class CategoriaServiceImplTest {
     @Mock
     private CategoriaRepository categoriaRepository;
 

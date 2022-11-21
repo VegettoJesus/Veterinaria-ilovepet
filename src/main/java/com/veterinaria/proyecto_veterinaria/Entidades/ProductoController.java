@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 
 
@@ -58,7 +58,7 @@ public class ProductoController {
         modelo.put("producto", producto);
         modelo.put("titulo",producto.getMarca()+ " - " + producto.getNombre());
         modelo.put("stockDispo","Está disponible en stock: "+producto.getStock() + " articulos");
-        modelo.put("vence", "Este producto vence en: "+producto.getFecha_Vencimiento());
+        modelo.put("vence", "Este producto vence en: "+producto.getFechaVencimiento());
         modelo.put("precio","S/."+producto.getPrecio());
         return "detalleProducto";
     }
@@ -74,7 +74,7 @@ public class ProductoController {
     }
 
     @GetMapping("/formularioProducto")
-    public String RegistrarProducto(Map<String,Object> modelo){
+    public String registrarProducto(Map<String,Object> modelo){
         Producto producto = new Producto();
         modelo.put("listaCategorias",categoriaService.findAll());
         modelo.put("producto", producto);

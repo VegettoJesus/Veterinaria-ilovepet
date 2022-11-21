@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import java.util.Map;
 
@@ -37,7 +37,7 @@ public class PropietarioController {
     }
 
     @GetMapping("/formularioPropietario")
-    public String RegistrarPropietarios(Map<String,Object> modelo){
+    public String registrarPropietarios(Map<String,Object> modelo){
         Propietario propietario = new Propietario();
         modelo.put("propietario", propietario);
         modelo.put("titulo","Registrar Propietario");

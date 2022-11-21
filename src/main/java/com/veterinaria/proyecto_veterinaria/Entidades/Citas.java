@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 
 import java.time.LocalDateTime;
@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import com.veterinaria.proyecto_veterinaria.Entidad_usuario.Empleado_Login;
+import com.veterinaria.proyecto_veterinaria.Entidad_usuario.empleadoLogin;
 
 @Entity
 @Table(name = "cita")
@@ -32,7 +32,7 @@ public class Citas {
 
     @ManyToOne
     @JoinColumn(name = "id_empleado")
-    private Empleado_Login empleado;
+    private empleadoLogin empleado;
 
     @ManyToOne
     @JoinColumn(name = "id_propietario")
@@ -47,7 +47,7 @@ public class Citas {
     private Servicio servicio;
 
     
-    private LocalDateTime fecha_registro = LocalDateTime.now();
+    private LocalDateTime fechaRegistro = LocalDateTime.now();
 
     private String Observaciones;
     private String Tratamiento;
@@ -55,10 +55,10 @@ public class Citas {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso = ISO.DATE)
     @NotNull
-    private Date fecha_cita;
+    private Date fechaCita;
 
     @NotEmpty
-    private String hora_cita;
+    private String horaCita;
 
     @NotEmpty
     private String Estado;
@@ -71,11 +71,11 @@ public class Citas {
         this.id = id;
     }
 
-    public Empleado_Login getEmpleado() {
+    public empleadoLogin getEmpleado() {
         return empleado;
     }
 
-    public void setEmpleado(Empleado_Login empleado) {
+    public void setEmpleado(empleadoLogin empleado) {
         this.empleado = empleado;
     }
 
@@ -95,14 +95,6 @@ public class Citas {
         this.servicio = servicio;
     }
 
-    public LocalDateTime getFecha_registro() {
-        return fecha_registro;
-    }
-
-    public void setFecha_registro(LocalDateTime fecha_registro) {
-        this.fecha_registro = fecha_registro;
-    }
-
     public String getObservaciones() {
         return Observaciones;
     }
@@ -111,20 +103,20 @@ public class Citas {
         Observaciones = observaciones;
     }
 
-    public Date getFecha_cita() {
-        return fecha_cita;
+    public Date getFechaCita() {
+        return fechaCita;
     }
 
-    public void setFecha_cita(Date fecha_cita) {
-        this.fecha_cita = fecha_cita;
+    public void setFechaCita(Date fechaCita) {
+        this.fechaCita = fechaCita;
     }
 
-    public String getHora_cita() {
-        return hora_cita;
+    public String getHoraCita() {
+        return horaCita;
     }
 
-    public void setHora_cita(String hora_cita) {
-        this.hora_cita = hora_cita;
+    public void setHoraCita(String horaCita) {
+        this.horaCita = horaCita;
     }
 
     public String getEstado() {
@@ -142,10 +134,17 @@ public class Citas {
     public void setTratamiento(String tratamiento) {
         Tratamiento = tratamiento;
     }
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
 
     @PrePersist
     public void asignarFechaRegistro(){
-        fecha_registro = LocalDateTime.now();
+        fechaRegistro = LocalDateTime.now();
     }
 
     public Propietario getPropietario() {
@@ -159,36 +158,36 @@ public class Citas {
     
 
     
-    public Citas(Long id, Empleado_Login empleado, Propietario propietario, Mascota mascota, Servicio servicio,
-            LocalDateTime fecha_registro, String observaciones, String tratamiento, @NotNull Date fecha_cita,
-            @NotEmpty String hora_cita, @NotEmpty String estado) {
+    public Citas(Long id, empleadoLogin empleado, Propietario propietario, Mascota mascota, Servicio servicio,
+            LocalDateTime fechaRegistro, String observaciones, String tratamiento, @NotNull Date fechaCita,
+            @NotEmpty String horaCita, @NotEmpty String estado) {
         this.id = id;
         this.empleado = empleado;
         this.propietario = propietario;
         this.mascota = mascota;
         this.servicio = servicio;
-        this.fecha_registro = fecha_registro;
+        this.fechaRegistro = fechaRegistro;
         Observaciones = observaciones;
         Tratamiento = tratamiento;
-        this.fecha_cita = fecha_cita;
-        this.hora_cita = hora_cita;
+        this.fechaCita = fechaCita;
+        this.horaCita = horaCita;
         Estado = estado;
     }
 
     
 
-    public Citas(Empleado_Login empleado, Propietario propietario, Mascota mascota, Servicio servicio,
-            LocalDateTime fecha_registro, String observaciones, String tratamiento, @NotNull Date fecha_cita,
-            @NotEmpty String hora_cita, @NotEmpty String estado) {
+    public Citas(empleadoLogin empleado, Propietario propietario, Mascota mascota, Servicio servicio,
+            LocalDateTime fechaRegistro, String observaciones, String tratamiento, @NotNull Date fechaCita,
+            @NotEmpty String horaCita, @NotEmpty String estado) {
         this.empleado = empleado;
         this.propietario = propietario;
         this.mascota = mascota;
         this.servicio = servicio;
-        this.fecha_registro = fecha_registro;
+        this.fechaRegistro = fechaRegistro;
         Observaciones = observaciones;
         Tratamiento = tratamiento;
-        this.fecha_cita = fecha_cita;
-        this.hora_cita = hora_cita;
+        this.fechaCita = fechaCita;
+        this.horaCita = horaCita;
         Estado = estado;
     }
 
@@ -200,5 +199,7 @@ public class Citas {
     public String toString() {
         return "" + servicio + "";
     }
+
+    
 
 }

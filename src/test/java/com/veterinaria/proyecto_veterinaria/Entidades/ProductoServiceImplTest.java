@@ -19,7 +19,11 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 
-public class ProductoServiceImplTest {
+import com.veterinaria.proyecto_veterinaria.entidades.Producto;
+import com.veterinaria.proyecto_veterinaria.entidades.ProductoRepository;
+import com.veterinaria.proyecto_veterinaria.entidades.ProductoServiceImpl;
+
+class ProductoServiceImplTest {
      /*Proviene del ProductoserviceImpl porque usa el repositorio */
   @Mock
   private ProductoRepository productoRepository;

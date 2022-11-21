@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class CitasServiceImpl implements CitasService{
     }
 
     @Override
-    public List<Citas> ListaAtendidos() {
-        return citasRepository.ListaAtendidos();
+    public List<Citas> listaAtendidos() {
+        return citasRepository.listaAtendidos();
     }
 }

@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +22,7 @@ public class Servicio {
     private float precio;
 
     @NotEmpty
-    private String tipo_mascota;
+    private String tipoMascota;
 
     
     public Long getId() {
@@ -54,29 +54,28 @@ public class Servicio {
         this.precio = precio;
     }
 
-
-    public String getTipo_mascota() {
-        return tipo_mascota;
+    public String getTipoMascota() {
+        return tipoMascota;
     }
 
 
-    public void setTipo_mascota(String tipo_mascota) {
-        this.tipo_mascota = tipo_mascota;
+    public void setTipoMascota(String tipoMascota) {
+        this.tipoMascota = tipoMascota;
     }
+    
 
-
-    public Servicio(Long id, @NotEmpty String descripcion, @NotNull float precio, @NotEmpty String tipo_mascota) {
+    public Servicio(Long id, @NotEmpty String descripcion, @NotNull float precio, @NotEmpty String tipoMascota) {
         this.id = id;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.tipo_mascota = tipo_mascota;
+        this.tipoMascota = tipoMascota;
     }
 
     
-    public Servicio(@NotEmpty String descripcion, @NotNull float precio, @NotEmpty String tipo_mascota) {
+    public Servicio(@NotEmpty String descripcion, @NotNull float precio, @NotEmpty String tipoMascota) {
         this.descripcion = descripcion;
         this.precio = precio;
-        this.tipo_mascota = tipo_mascota;
+        this.tipoMascota = tipoMascota;
     }
 
 
@@ -88,6 +87,9 @@ public class Servicio {
     public String toString() {
         return descripcion;
     }
+
+
+    
 
     
 

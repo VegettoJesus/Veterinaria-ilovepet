@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import java.util.Map;
 
@@ -36,7 +36,7 @@ public class CategoriaController {
     }
     
     @GetMapping("/formularioCategoria")
-    public String RegistrarCategorias(Map<String,Object> modelo){
+    public String registrarCategorias(Map<String,Object> modelo){
         Categoria categoria = new Categoria();
         modelo.put("categoria", categoria);
         modelo.put("titulo","Registrar Categoria");

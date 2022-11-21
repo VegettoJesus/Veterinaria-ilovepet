@@ -95,10 +95,10 @@
                                         style="max-width: 30rem;">
                                         <div  class="card-header text-diseño-detalle" th:text="${'N° de Atencion '+citas.id}"></div>
                                         <div class="card-body">
-                                            <h5 class="card-title" th:text="${'Fecha de Atención: '+citas.fecha_cita}"></h5>
+                                            <h5 class="card-title" th:text="${'Fecha de Atención: '+citas.fechaCita}"></h5>
                                             <p class="card-text" th:text="${'Descripción de la Cita: '+citas.servicio.descripcion}"></p>
                                             <p class="card-text" th:text="${'Médico: '+citas.empleado.nombre + ' '+citas.empleado.apellido}"></p>
-                                            <p class="card-text" th:text="${'Hora de la Cita: '+citas.hora_cita}"></p>
+                                            <p class="card-text" th:text="${'Hora de la Cita: '+citas.horaCita}"></p>
                                             <p class="card-text fw-bolder " th:if="${citas.Observaciones != null}" th:text="${'Observaciones: '+citas.Observaciones}"></p>
                                             <p class="card-text fw-bolder " th:if="${citas.Observaciones == null}" th:text="${'Observaciones: Ninguno'}"></p>
                                             <p class="card-text fw-bolder " th:if="${citas.Tratamiento != null}" th:text="${'Tratamiento: '+citas.Tratamiento}"></p>

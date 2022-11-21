@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -40,18 +40,18 @@ public class Producto {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso = ISO.DATE)
     @NotNull
-    private Date fecha_Vencimiento;
+    private Date fechaVencimiento;
 
-    private LocalDateTime fecha_Registro = LocalDateTime.now();
+    private LocalDateTime fechaRegistro = LocalDateTime.now();
 
     @NotEmpty
     private String marca;
 
     @NotEmpty
-    private String nombre_Proveedor;
+    private String nombreProveedor;
 
     @NotNull
-    private Long ruc_proveedor;
+    private Long rucProveedor;
 
     @NotNull
     private Long stock;
@@ -59,6 +59,8 @@ public class Producto {
     @ManyToOne
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
+
+    
 
     public Long getId() {
         return id;
@@ -100,20 +102,20 @@ public class Producto {
         this.precio = precio;
     }
 
-    public Date getFecha_Vencimiento() {
-        return fecha_Vencimiento;
+    public Date getFechaVencimiento() {
+        return fechaVencimiento;
     }
 
-    public void setFecha_Vencimiento(Date fecha_Vencimiento) {
-        this.fecha_Vencimiento = fecha_Vencimiento;
+    public void setFechaVencimiento(Date fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
     }
 
-    public LocalDateTime getFecha_Registro() {
-        return fecha_Registro;
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setFecha_Registro(LocalDateTime fecha_Registro) {
-        this.fecha_Registro = fecha_Registro;
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public String getMarca() {
@@ -124,20 +126,20 @@ public class Producto {
         this.marca = marca;
     }
 
-    public String getNombre_Proveedor() {
-        return nombre_Proveedor;
+    public String getNombreProveedor() {
+        return nombreProveedor;
     }
 
-    public void setNombre_Proveedor(String nombre_Proveedor) {
-        this.nombre_Proveedor = nombre_Proveedor;
+    public void setNombreProveedor(String nombreProveedor) {
+        this.nombreProveedor = nombreProveedor;
     }
 
-    public Long getRuc_proveedor() {
-        return ruc_proveedor;
+    public Long getRucProveedor() {
+        return rucProveedor;
     }
 
-    public void setRuc_proveedor(Long ruc_proveedor) {
-        this.ruc_proveedor = ruc_proveedor;
+    public void setRucProveedor(Long rucProveedor) {
+        this.rucProveedor = rucProveedor;
     }
 
     public Long getStock() {
@@ -146,10 +148,6 @@ public class Producto {
 
     public void setStock(Long stock) {
         this.stock = stock;
-    }
-
-    public Producto(@NotEmpty String codigo) {
-        this.codigo = codigo;
     }
 
     public Producto() {
@@ -173,41 +171,41 @@ public class Producto {
 
     @PrePersist
     public void asignarFechaRegistro(){
-        fecha_Registro = LocalDateTime.now();
+        fechaRegistro = LocalDateTime.now();
     }
 
     public Producto(Long id, @NotEmpty String codigo, @NotEmpty String nombre, @NotEmpty String descripcion,
-            @NotNull float precio, @NotNull Date fecha_Vencimiento, LocalDateTime fecha_Registro,
-            @NotEmpty String marca, @NotEmpty String nombre_Proveedor, @NotNull Long ruc_proveedor, @NotNull Long stock,
+            @NotNull float precio, @NotNull Date fecha_Vencimiento, LocalDateTime fechaRegistro,
+            @NotEmpty String marca, @NotEmpty String nombreProveedor, @NotNull Long rucProveedor, @NotNull Long stock,
             Categoria categoria) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.fecha_Vencimiento = fecha_Vencimiento;
-        this.fecha_Registro = fecha_Registro;
+        this.fechaVencimiento = fecha_Vencimiento;
+        this.fechaRegistro = fechaRegistro;
         this.marca = marca;
-        this.nombre_Proveedor = nombre_Proveedor;
-        this.ruc_proveedor = ruc_proveedor;
+        this.nombreProveedor = nombreProveedor;
+        this.rucProveedor = rucProveedor;
         this.stock = stock;
         this.categoria = categoria;
     }
 
 
     public Producto(@NotEmpty String codigo, @NotEmpty String nombre, @NotEmpty String descripcion,
-            @NotNull float precio, @NotNull Date fecha_Vencimiento, LocalDateTime fecha_Registro,
-            @NotEmpty String marca, @NotEmpty String nombre_Proveedor, @NotNull Long ruc_proveedor, @NotNull Long stock,
+            @NotNull float precio, @NotNull Date fechaVencimiento, LocalDateTime fechaRegistro,
+            @NotEmpty String marca, @NotEmpty String nombreProveedor, @NotNull Long rucProveedor, @NotNull Long stock,
             Categoria categoria) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.fecha_Vencimiento = fecha_Vencimiento;
-        this.fecha_Registro = fecha_Registro;
+        this.fechaVencimiento = fechaVencimiento;
+        this.fechaRegistro = fechaRegistro;
         this.marca = marca;
-        this.nombre_Proveedor = nombre_Proveedor;
-        this.ruc_proveedor = ruc_proveedor;
+        this.nombreProveedor = nombreProveedor;
+        this.rucProveedor = rucProveedor;
         this.stock = stock;
         this.categoria = categoria;
     }

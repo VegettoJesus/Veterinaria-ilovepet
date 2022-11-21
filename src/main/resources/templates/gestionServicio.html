@@ -57,7 +57,7 @@
                                 <tr th:each="servicio : ${servicio}">
                                     <td class=" text-black estilo-letra-mascota" th:text="${servicio.descripcion}"></td>
                                     <td class=" text-black estilo-letra-mascota" th:text="${servicio.precio}"></td>
-                                    <td class=" text-black estilo-letra-mascota" th:text="${servicio.tipo_mascota}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${servicio.tipoMascota}"></td>
                                     <td>
                                         <a onclick="return Eliminar(this)" id="btn-eliminar-servicio" th:href="@{/eliminarServicio/} + ${servicio.id}" class="btn btn-danger me-1"
                                             type="submit"><img src="../imagenes/eliminar.png" alt="huella" height="30"

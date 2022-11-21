@@ -1,4 +1,4 @@
-package com.veterinaria.proyecto_veterinaria.Entidades;
+package com.veterinaria.proyecto_veterinaria.entidades;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -52,8 +52,8 @@ public class HistorialExporterPDF {
         for(Citas citas : listaCitas){
             if(valor.equals(citas.getMascota().getId())){
                 tabla.addCell(String.valueOf(citas.getId()));
-                tabla.addCell(citas.getFecha_cita().toString());
-                tabla.addCell(citas.getHora_cita());
+                tabla.addCell(citas.getFechaCita().toString());
+                tabla.addCell(citas.getHoraCita());
                 tabla.addCell(citas.getServicio().getDescripcion());
                 tabla.addCell(citas.getObservaciones());
                 tabla.addCell(citas.getTratamiento());

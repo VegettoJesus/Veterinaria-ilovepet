@@ -21,7 +21,8 @@ public class PageRender<T> {
         totalPaginas = page.getTotalPages();
         paginaActual = page.getNumber() + 1;
 
-        int desde, hasta;
+        int desde;
+        int hasta;
         if(totalPaginas <= numElementosPorPagina){
             desde = 1;
             hasta = totalPaginas;

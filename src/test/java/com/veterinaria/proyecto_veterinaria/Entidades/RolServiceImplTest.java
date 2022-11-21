@@ -17,11 +17,16 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
+
+import com.veterinaria.proyecto_veterinaria.entidades.Rol;
+import com.veterinaria.proyecto_veterinaria.entidades.RolRepository;
+import com.veterinaria.proyecto_veterinaria.entidades.RolServiceImpl;
+
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 
 /*import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;*/
 
-public class RolServiceImplTest {
+class RolServiceImplTest {
 
     @Mock
     private RolRepository rolRepository;

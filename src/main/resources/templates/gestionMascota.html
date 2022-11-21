@@ -62,7 +62,7 @@
                                     <td class=" text-black estilo-letra-mascota" th:text="${mascota.Sexo}"></td>
                                     <td class=" text-black estilo-letra-mascota" th:text="${mascota.color}"></td>
                                     <td class=" text-black estilo-letra-mascota" th:text="${mascota.especie}"></td>
-                                    <td class=" text-black estilo-letra-mascota" th:text="${#temporals.format(mascota.fecha_registro,'dd/MM/YYYY hh:mm a')}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${#temporals.format(mascota.fechaRegistro,'dd/MM/YYYY hh:mm a')}"></td>
                                     <td class=" text-black estilo-letra-mascota" th:text="${mascota.peso}+' Kg'"></td>
                                     <td>
                                         <a id="btn-ver" th:href="@{/detalleMascota/} + ${mascota.id}" class="btn btn-info me-1 "

@@ -20,7 +20,11 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 
-public class CitasServiceImplTest {
+import com.veterinaria.proyecto_veterinaria.entidades.Citas;
+import com.veterinaria.proyecto_veterinaria.entidades.CitasRepository;
+import com.veterinaria.proyecto_veterinaria.entidades.CitasServiceImpl;
+
+class CitasServiceImplTest {
     @Mock
     private CitasRepository citasRepository;
 

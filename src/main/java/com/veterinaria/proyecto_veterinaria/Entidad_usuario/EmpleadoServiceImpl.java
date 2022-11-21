@@ -18,63 +18,63 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.veterinaria.proyecto_veterinaria.Entidades.Rol;
+import com.veterinaria.proyecto_veterinaria.entidades.Rol;
 
 @Service
-public class EmpleadoServiceImpl implements Empleado_Service{
+public class EmpleadoServiceImpl implements EmpleadoService{
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
    
     @Autowired
-    private Empleado_Repositoriy empleado_Repositoriy;
+    private empleadoRepository empleadoRepository;
 
     @Override
     @Transactional(readOnly = true)
-    public List<Empleado_Login> findAll() {
-        return (List<Empleado_Login>) empleado_Repositoriy.findAll();
+    public List<empleadoLogin> findAll() {
+        return (List<empleadoLogin>) empleadoRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Empleado_Login> findAll(Pageable pageable) {
-        return empleado_Repositoriy.findAll(pageable);
+    public Page<empleadoLogin> findAll(Pageable pageable) {
+        return empleadoRepository.findAll(pageable);
     }
 
     @Override
     @Transactional
-    public void save(Empleado_Login empleado_Login) {
-        if(empleado_Login.getId()==null){
-            empleado_Login = new Empleado_Login(empleado_Login.getDni(), empleado_Login.getNombre(), empleado_Login.getApellido(), empleado_Login.getFecha_Nacimiento(), empleado_Login.getCelular(), empleado_Login.getEmail(), empleado_Login.getDireccion(), empleado_Login.getUsuario(), passwordEncoder.encode(empleado_Login.getPassword()), empleado_Login.getSexo(), empleado_Login.getTipo_rol());
+    public void save(empleadoLogin empleadoLogin) {
+        if(empleadoLogin.getId()==null){
+            empleadoLogin = new empleadoLogin(empleadoLogin.getDni(), empleadoLogin.getNombre(), empleadoLogin.getApellido(), empleadoLogin.getFechaNacimiento(), empleadoLogin.getCelular(), empleadoLogin.getEmail(), empleadoLogin.getDireccion(), empleadoLogin.getUsuario(), passwordEncoder.encode(empleadoLogin.getPassword()), empleadoLogin.getSexo(), empleadoLogin.getTipoRol());
         }
-        if(empleado_Login.getId()!=null){
-            empleado_Login.setPassword(passwordEncoder.encode(empleado_Login.getPassword()));
+        if(empleadoLogin.getId()!=null){
+            empleadoLogin.setPassword(passwordEncoder.encode(empleadoLogin.getPassword()));
         }
        
-        empleado_Repositoriy.save(empleado_Login);
+        empleadoRepository.save(empleadoLogin);
         
     }
 
     @Override
     @Transactional
-    public Empleado_Login findOne(long id) {
-        return empleado_Repositoriy.findById(id).orElse(null);
+    public empleadoLogin findOne(long id) {
+        return empleadoRepository.findById(id).orElse(null);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        empleado_Repositoriy.deleteById(id);
+        empleadoRepository.deleteById(id);
         
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Empleado_Login usuario = empleado_Repositoriy.findByEmail(username);
+        empleadoLogin usuario = empleadoRepository.findByEmail(username);
         if(usuario == null){
             throw new UsernameNotFoundException("Usuario o password inválidos");
         }
-        return new User(usuario.getEmail(), usuario.getPassword(), mapearAutoridadesRoles(usuario.getTipo_rol()));
+        return new User(usuario.getEmail(), usuario.getPassword(), mapearAutoridadesRoles(usuario.getTipoRol()));
     }
 
     private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles){

@@ -18,9 +18,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
+
+import com.veterinaria.proyecto_veterinaria.entidades.Servicio;
+import com.veterinaria.proyecto_veterinaria.entidades.ServicioRepository;
+import com.veterinaria.proyecto_veterinaria.entidades.ServicioServiceImpl;
+
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 
-public class ServicioServiceImplTest {
+class ServicioServiceImplTest {
     @Mock
   private ServicioRepository servicioRepository;
 
@@ -39,7 +44,7 @@ public class ServicioServiceImplTest {
     servicio.setId(22L);
     servicio.setDescripcion(new String());
     servicio.setPrecio(50);
-    servicio.setTipo_mascota(new String());
+    servicio.setTipoMascota(new String());
   }
     @Test
     void testDelete() {
