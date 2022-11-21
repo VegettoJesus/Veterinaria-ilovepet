@@ -9,6 +9,30 @@ describe('Proyecto veterinaria - Productos', () => {
       cy.get("[type='submit']").click()
     })
   })
+  it('Registrar Categoria', () => {
+    cy.visit(Cypress.env('base_url2'))
+    cy.get('#productos').click()
+    cy.location('pathname').should('eq','/menu-producto')
+    cy.get('#btnGestionarProducto').click()
+    cy.location('pathname').should('eq','/gestionProducto')
+    cy.get('#btnCategoria').click()
+    cy.location('pathname').should('eq','/GestionCategoria')
+    cy.get('#registrarCategoria').click()
+    cy.location('pathname').should('eq','/formularioCategoria')
+    cy.get('#nombre').type('Accesorio')
+    cy.get('#btn-registrar').click()
+    cy.location('pathname').should('eq','/GestionCategoria')  
+  })
+  it('Editar Categoria', () => {
+    cy.visit(Cypress.env('base_url5'))
+    cy.get('#registrarCategoria').click()
+    cy.location('pathname').should('eq','/formularioCategoria/1')
+    cy.get('#nombre').clear()
+    cy.get('#nombre').type('Comida')
+    
+    cy.get('#btn-registrar').click()
+    cy.location('pathname').should('eq','/formularioCategoria')  
+  })
   it('Registrar Producto', () => {
     cy.visit(Cypress.env('base_url2'))
     cy.get('#productos').click()
@@ -67,8 +91,8 @@ describe('Proyecto veterinaria - Productos', () => {
     cy.location('pathname').should('eq','/catalogoProducto')
     cy.get('#btnRegresarProducto').click()
     cy.location('pathname').should('eq','/menu-producto')
-  })
-  /*it('Eliminar Producto', () => { 
+  })/*
+  it('Eliminar Producto', () => { 
     cy.visit(Cypress.env('base_url6'))
     cy.get('#btn-eliminar-producto').click({force:true})
     cy.get('.swal2-confirm').click({force:true})

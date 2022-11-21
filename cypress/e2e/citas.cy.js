@@ -15,19 +15,19 @@ describe('Proyecto veterinaria - Citas', () => {
     cy.location('pathname').should('eq','/gestionCitas')
     cy.get('#btnRegistrarCita').click()
     cy.location('pathname').should('eq','/formularioCitas')
-    cy.get("[name=\'empleado\']").select('1').invoke('val').then((value)=>{
+    cy.get("[name=\'empleado\']").select('2').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
     cy.get("[name=\'propietario\']").select('1').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
-    cy.get("[name=\'mascota\']").select('1').invoke('val').then((value)=>{
+    cy.get("[name=\'mascota\']").select('2').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
     cy.get("[name=\'servicio\']").select('1').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
-    cy.get('#fecha_cita').type('2022-10-19')
+    cy.get('#fecha_cita').type('2023-01-19')
     cy.get('#hora_cita').select('8: 00 - 9: 00 a.m.')   
     cy.get('#btn-registrar').click()
     cy.location('pathname').should('eq','/gestionCitas')  
@@ -38,13 +38,13 @@ describe('Proyecto veterinaria - Citas', () => {
     cy.location('pathname').should('eq','/gestionCitas')
     cy.get('#btneditarCita').click()
     cy.location('pathname').should('eq','/formularioCitas/1')
-    cy.get("[name=\'empleado\']").select('1').invoke('val').then((value)=>{
+    cy.get("[name=\'empleado\']").select('2').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
     cy.get("[name=\'propietario\']").select('1').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
-    cy.get("[name=\'mascota\']").select('1').invoke('val').then((value)=>{
+    cy.get("[name=\'mascota\']").select('2').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
     cy.get("[name=\'servicio\']").select('1').invoke('val').then((value)=>{
@@ -52,9 +52,7 @@ describe('Proyecto veterinaria - Citas', () => {
     })
     cy.get('#fecha_cita').clear() 
     cy.get('#fecha_cita').type('2022-10-20')
-    cy.get('#hora_cita').select('10: 00 - 11: 00 a.m.')  
-    cy.get('#observaciones').type('La mascota se encuentra bien')
-
+    cy.get('#hora_cita').select('10: 00 - 11: 00 a.m.')
     cy.get('#btn-registrar').click()
     cy.location('pathname').should('eq','/gestionCitas')  
   })

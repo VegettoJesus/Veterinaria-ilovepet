@@ -10,7 +10,8 @@ module.exports = defineConfig({
     base_url6: 'http://localhost:8080/gestionProducto',
     base_url7: 'http://localhost:8080/gestionCitas',
     base_url8: 'http://localhost:8080/gestionServicio',
-    base_url9: 'http://localhost:8080/gestionPropietario'
+    base_url9: 'http://localhost:8080/gestionPropietario',
+    base_url10: 'http://localhost:8080/gestionAtencion'
   },
   e2e: {
     experimentalSessionAndOrigin:true,
