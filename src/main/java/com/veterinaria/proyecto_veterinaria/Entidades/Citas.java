@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import com.veterinaria.proyecto_veterinaria.Entidad_usuario.empleadoLogin;
+import com.veterinaria.proyecto_veterinaria.entidadUsuario.empleadoLogin;
 
 @Entity
 @Table(name = "cita")

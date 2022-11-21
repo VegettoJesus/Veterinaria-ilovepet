@@ -69,6 +69,7 @@ class PropietarioServiceImplTest {
       @SuppressWarnings("unchecked")
       Page<Propietario> propietarios = Mockito.mock(Page.class);
       Mockito.when(this.propietarioRepository.findAll((org.springframework.data.domain.Pageable) ArgumentMatchers.isA(Pageable.class))).thenReturn(propietarios);
+      assertNotNull(propietarioServiceImpl.findAll());
     }
     
     @Test

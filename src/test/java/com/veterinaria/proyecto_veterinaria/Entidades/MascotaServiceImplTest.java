@@ -38,7 +38,6 @@ class MascotaServiceImplTest {
   @BeforeEach
   void setUp(){
 
-    /*MockitoAnnotations.initMocks(this); */
     MockitoAnnotations.openMocks(this);
 
     mascota = new Mascota();
@@ -57,10 +56,6 @@ class MascotaServiceImplTest {
     @Test
     void testDelete() {
       final Long mascotaId =12L;
-      /*final String mascotaNombre = "Bulbasaur";
-      final String mascotaEspecie = "Perro";
-      final String mascotaRaza = "Pitbull";
-      final int mascotaEdad = 10;*/
 
       mascotaServiceImpl.delete(mascotaId);
 
@@ -82,6 +77,7 @@ class MascotaServiceImplTest {
       @SuppressWarnings("unchecked")
       Page<Mascota> mascotas = Mockito.mock(Page.class);
       Mockito.when(this.mascotaRepository.findAll((org.springframework.data.domain.Pageable) ArgumentMatchers.isA(Pageable.class))).thenReturn(mascotas);
+      assertNotNull(mascotaServiceImpl.findAll());
     }
 
     @Test

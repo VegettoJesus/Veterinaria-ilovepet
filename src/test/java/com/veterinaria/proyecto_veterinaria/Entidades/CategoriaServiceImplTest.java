@@ -35,8 +35,6 @@ class CategoriaServiceImplTest {
 
   @BeforeEach
   void setUp(){
-
-    /*MockitoAnnotations.initMocks(this); */
     MockitoAnnotations.openMocks(this);
 
     categoria = new Categoria();
@@ -69,6 +67,7 @@ class CategoriaServiceImplTest {
       @SuppressWarnings("unchecked")
       Page<Categoria> categorias = Mockito.mock(Page.class);
       Mockito.when(this.categoriaRepository.findAll((org.springframework.data.domain.Pageable) ArgumentMatchers.isA(Pageable.class))).thenReturn(categorias);
+      assertNotNull(categoriaServiceImpl.findAll());
     }
 
     @Test

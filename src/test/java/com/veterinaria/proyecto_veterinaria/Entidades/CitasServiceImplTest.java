@@ -66,7 +66,7 @@ class CitasServiceImplTest {
       @SuppressWarnings("unchecked")
       Page<Citas> citass = Mockito.mock(Page.class);
       Mockito.when(this.citasRepository.findAll((org.springframework.data.domain.Pageable) ArgumentMatchers.isA(Pageable.class))).thenReturn(citass);
-      
+      assertNotNull(citasServiceImpl.findAll());
     }
 
     @Test

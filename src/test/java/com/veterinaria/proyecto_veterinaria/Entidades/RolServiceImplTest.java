@@ -24,7 +24,7 @@ import com.veterinaria.proyecto_veterinaria.entidades.RolServiceImpl;
 
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 
-/*import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;*/
+
 
 class RolServiceImplTest {
 
@@ -39,7 +39,6 @@ class RolServiceImplTest {
     
     @BeforeEach
    void setUp(){
-    /*MockitoAnnotations.initMocks(this); */
     MockitoAnnotations.openMocks(this);
     rol = new Rol();
     rol.setId(10L);
@@ -63,8 +62,6 @@ class RolServiceImplTest {
 
     @Test
     void testFindAll2Page() {
-        /*when(rolRepository.findAll()).thenReturn(Arrays.asList(() -> ));
-        assertNotNull(rolServiceImpl.findAll());*/
         when(rolRepository.findAll()).thenReturn(Arrays.asList(
         new Rol(10L,"Administrador")
         ));
@@ -72,6 +69,7 @@ class RolServiceImplTest {
       @SuppressWarnings("unchecked")
       Page<Rol> roles = Mockito.mock(Page.class);
       Mockito.when(this.rolRepository.findAll((org.springframework.data.domain.Pageable) ArgumentMatchers.isA(Pageable.class))).thenReturn(roles);
+      assertNotNull(rolServiceImpl.findAll());
     }
 
     @Test

@@ -73,7 +73,7 @@ class ProductoServiceImplTest {
       @SuppressWarnings("unchecked")
       Page<Producto> productos = Mockito.mock(Page.class);
       Mockito.when(this.productoRepository.findAll((org.springframework.data.domain.Pageable) ArgumentMatchers.isA(Pageable.class))).thenReturn(productos);
-      
+      assertNotNull(productoServiceImpl.findAll());
 
     }
 

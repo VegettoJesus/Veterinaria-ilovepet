@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.veterinaria.proyecto_veterinaria.Entidad_usuario.EmpleadoService;
+import com.veterinaria.proyecto_veterinaria.entidadUsuario.EmpleadoService;
 import com.veterinaria.proyecto_veterinaria.paginacion.PageRender;
 
 @Controller

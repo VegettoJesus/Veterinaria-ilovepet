@@ -37,7 +37,6 @@ class ServicioServiceImplTest {
   @BeforeEach
   void setUp(){
 
-    /*MockitoAnnotations.initMocks(this); */
     MockitoAnnotations.openMocks(this);
 
     servicio = new Servicio();
@@ -75,7 +74,7 @@ class ServicioServiceImplTest {
       @SuppressWarnings("unchecked")
       Page<Servicio> servicios = Mockito.mock(Page.class);
       Mockito.when(this.servicioRepository.findAll((org.springframework.data.domain.Pageable) ArgumentMatchers.isA(Pageable.class))).thenReturn(servicios);
-      
+      assertNotNull(servicioServiceImpl.findAll());
     }
 
     @Test
