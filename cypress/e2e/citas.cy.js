@@ -21,7 +21,7 @@ describe('Proyecto veterinaria - Citas', () => {
     cy.get("[name=\'propietario\']").select('1').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
-    cy.get("[name=\'mascota\']").select('2').invoke('val').then((value)=>{
+    cy.get("[name=\'mascota\']").select('1').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
     cy.get("[name=\'servicio\']").select('1').invoke('val').then((value)=>{
@@ -44,7 +44,7 @@ describe('Proyecto veterinaria - Citas', () => {
     cy.get("[name=\'propietario\']").select('1').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
-    cy.get("[name=\'mascota\']").select('2').invoke('val').then((value)=>{
+    cy.get("[name=\'mascota\']").select('1').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
     cy.get("[name=\'servicio\']").select('1').invoke('val').then((value)=>{

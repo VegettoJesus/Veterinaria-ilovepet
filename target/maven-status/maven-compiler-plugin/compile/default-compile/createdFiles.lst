@@ -1,5 +1,4 @@
 com\veterinaria\proyecto_veterinaria\Entidades\PropietarioRepository.class
-com\veterinaria\proyecto_veterinaria\Entidad_usuario\passwordGenerator.class
 com\veterinaria\proyecto_veterinaria\Entidades\RolController.class
 com\veterinaria\proyecto_veterinaria\ProyectoVeterinariaApplication.class
 com\veterinaria\proyecto_veterinaria\Entidades\PropietarioController.class
@@ -37,7 +36,6 @@ com\veterinaria\proyecto_veterinaria\Entidades\CategoriaController.class
 com\veterinaria\proyecto_veterinaria\Entidades\ProductoService.class
 com\veterinaria\proyecto_veterinaria\Entidades\CitasService.class
 com\veterinaria\proyecto_veterinaria\Entidades\CitasRepository.class
-com\veterinaria\proyecto_veterinaria\Entidades\Boleta.class
 com\veterinaria\proyecto_veterinaria\Entidades\PropietarioService.class
 com\veterinaria\proyecto_veterinaria\Entidades\MascotaService.class
 com\veterinaria\proyecto_veterinaria\Entidades\Mascota.class

@@ -50,7 +50,7 @@ public class HistorialExporterPDF {
     }
     private void escribirDatosDeLaTabla(PdfPTable tabla){
         for(Citas citas : listaCitas){
-            if(valor == citas.getMascota().getId()){
+            if(valor.equals(citas.getMascota().getId())){
                 tabla.addCell(String.valueOf(citas.getId()));
                 tabla.addCell(citas.getFecha_cita().toString());
                 tabla.addCell(citas.getHora_cita());
@@ -72,7 +72,7 @@ public class HistorialExporterPDF {
         fuente.setSize(18);
 
         for(Citas citas : listaCitas){
-            if(valor == citas.getMascota().getId()){
+            if(valor.equals(citas.getMascota().getId())){
                 Paragraph titulo = new Paragraph(citas.getMascota().getNombre(), fuente);
                 titulo.setAlignment(Paragraph.ALIGN_CENTER);
                 documento.add(titulo);
