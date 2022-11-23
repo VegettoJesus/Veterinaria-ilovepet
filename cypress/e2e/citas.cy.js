@@ -27,8 +27,8 @@ describe('Proyecto veterinaria - Citas', () => {
     cy.get("[name=\'servicio\']").select('1').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
-    cy.get('#fecha_cita').type('2023-01-19')
-    cy.get('#hora_cita').select('8: 00 - 9: 00 a.m.')   
+    cy.get('#fechaCita').type('2023-01-19')
+    cy.get('#horaCita').select('8: 00 - 9: 00 a.m.')   
     cy.get('#btn-registrar').click()
     cy.location('pathname').should('eq','/gestionCitas')  
   })
@@ -37,7 +37,7 @@ describe('Proyecto veterinaria - Citas', () => {
     cy.get('#Citas').click()
     cy.location('pathname').should('eq','/gestionCitas')
     cy.get('#btneditarCita').click()
-    cy.location('pathname').should('eq','/formularioCitas/1')
+    cy.location('pathname').should('eq','/formularioCitas/6')
     cy.get("[name=\'empleado\']").select('2').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
@@ -50,9 +50,9 @@ describe('Proyecto veterinaria - Citas', () => {
     cy.get("[name=\'servicio\']").select('1').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
-    cy.get('#fecha_cita').clear() 
-    cy.get('#fecha_cita').type('2022-10-20')
-    cy.get('#hora_cita').select('10: 00 - 11: 00 a.m.')
+    cy.get('#fechaCita').clear() 
+    cy.get('#fechaCita').type('2022-10-20')
+    cy.get('#horaCita').select('10: 00 - 11: 00 a.m.')
     cy.get('#btn-registrar').click()
     cy.location('pathname').should('eq','/gestionCitas')  
   })

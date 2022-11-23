@@ -46,10 +46,10 @@ describe('Proyecto veterinaria - Gestion_Empleado', () => {
     cy.get('#email').type('adriana17@gmail.com')
     cy.get('#celular').type('987654321')
     cy.get('#sexo').select('M')
-    cy.get('#fecha_Nacimiento').type('2002-04-12')
+    cy.get('#fechaNacimiento').type('2002-04-12')
     cy.get('#usuario').type('Adri17')
     cy.get('#password').type('123')
-    cy.get("[name=\'tipo_rol\']").select('2').invoke('val').then((value)=>{
+    cy.get("[name=\'tipoRol\']").select('7').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
     cy.get('#btn-registrar').click()
@@ -71,12 +71,12 @@ describe('Proyecto veterinaria - Gestion_Empleado', () => {
     cy.get('#celular').clear()
     cy.get('#celular').type('987654321')
     cy.get('#sexo').select('F')
-    cy.get('#fecha_Nacimiento').type('2002-04-12')
+    cy.get('#fechaNacimiento').type('2002-04-12')
     cy.get('#usuario').clear()
     cy.get('#usuario').type('Adri17')
     cy.get('#password').clear()
     cy.get('#password').type('123')
-    cy.get("[name=\'tipo_rol\']").select('2').invoke('val').then((value)=>{
+    cy.get("[name=\'tipoRol\']").select('7').invoke('val').then((value)=>{
       cy.log('selected value -'+value)
     })
     cy.get('#btn-registrar').click()

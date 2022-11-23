@@ -20,7 +20,7 @@ describe('Proyecto veterinaria', () => {
     cy.get('#descripcion').type('Baño')
     cy.get('#precio').clear()
     cy.get('#precio').type('30')
-    cy.get('#tipo_mascota').select('Perro')
+    cy.get('#tipoMascota').select('Perro')
     cy.get('#btn-registrar').click()
     cy.location('pathname').should('eq','/gestionServicio')  
   })
