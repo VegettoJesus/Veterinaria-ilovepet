@@ -25,13 +25,12 @@ describe('Proyecto veterinaria - Productos', () => {
   })
   it('Editar Categoria', () => {
     cy.visit(Cypress.env('base_url5'))
-    cy.get('#registrarCategoria').click()
+    cy.get('#btnEditarCategoria').click()
     cy.location('pathname').should('eq','/formularioCategoria/1')
     cy.get('#nombre').clear()
     cy.get('#nombre').type('Comida')
-    
     cy.get('#btn-registrar').click()
-    cy.location('pathname').should('eq','/formularioCategoria')  
+    cy.location('pathname').should('eq','/GestionCategoria')  
   })
   it('Registrar Producto', () => {
     cy.visit(Cypress.env('base_url2'))
