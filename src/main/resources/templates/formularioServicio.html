@@ -1,0 +1,58 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head">
+    <meta charset="utf-8">
+</head>
+
+<body class="bg-detalle-usuario">
+    <div class="wrapper">
+        <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0 p-5 ">
+            <div class="container-fluid">
+                <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2">
+                    <div class="col mx-auto">
+                        <div class="card shadow-lg p-3 mb-5 bg-body rounded border border-light p-3">
+                            <div class="card-body p-3 rounded text-center">
+                                <img src="../imagenes/servicio.png" alt="registrar-Servicio" height="150"
+                                    width="150">
+                                <h3 class="text-diseño-rc text-center" th:text="${titulo}"></h3>
+                            </div>
+                            <hr class="border border-light" />
+                            <form th:action="@{/formularioServicio}" method="post" th:object="${servicio}"
+                                class="row g-3">
+                                <input type="hidden" th:field="*{id}" th:value="${servicio.id}" />
+                                <div class="col-md-12 position-relative">
+                                    <label class="text-diseño-rc2">Descripción</label>
+                                    <input id="descripcion" type="text" th:field="*{descripcion}" class="form-control" placeholder="Ingrese descripción del servicio" required>
+                                </div>
+                                <div class="col-md-4 position-relative">
+                                    <label class="text-diseño-rc2">Precio S/</label>
+                                    <input id="precio" type="text" th:field="*{precio}" class="form-control" placeholder="S/0.00" required>
+                                </div>
+                                <div class="col-md-6 position-relative">
+                                    <label class="form-label text-diseño-rc2">Tipo de mascota</label>
+                                    <select class="form-select form-select mb-3" th:field="*{tipoMascota}">
+                                        <option value="" selected="selected" >-Seleccionar Especie-</option>
+                                        <option  value="Perro">Perro</option>
+                                        <option  value="Gato">gato</option>
+                                        <option  value="Conejo">Conejo</option>
+                                        <option  value="Hamster">Hamster</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 d-grid">
+                                    <button type="submit" id="btn-registrar" class="btn btn-fondo-rc text-light">REGISTRAR</button>
+                                </div>
+                                <div class="col-12 d-grid">
+                                    <a th:href="@{/gestionServicio}" type="submit" id="btn-regresar"
+                                        class="btn btn-fondo-rc text-light">VOLVER</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="layout :: footer"></footer>
+</body>
+
+</html>

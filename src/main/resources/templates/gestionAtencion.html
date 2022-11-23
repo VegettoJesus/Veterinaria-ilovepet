@@ -1,0 +1,81 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head">
+    <meta charset="utf-8">
+</head>
+
+<body class="bg-detalle-usuario" onload="modal()">
+    <div class="container">
+        <div th:if="${success != null}" class="alert alert-primary alert-dismissible fade show">
+            [[${success}]]>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="container">
+        <div th:if="${warning != null}" class="alert alert-warning alert-dismissible fade show">
+            [[${warning}]]>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="container">
+        <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show">
+            [[${error}]]>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="container">
+        <div th:if="${info != null}" class="alert alert-info alert-dismissible fade show">
+            [[${info}]]>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <main class="d-flex">
+        <div th:replace="layout :: SidebarAdmin"></div>
+
+        <!--TABLA DONDE SE VERÁN LOS MASCOTAS DE LA VETERINARIA-->
+
+        <div class="py-4 me-auto  ms-auto">
+            <div class="card table-hover">
+                <div class="card-header degradadoFondo ">GESTION DE ATENCIONES</div>
+                <div class="card-body table-fondo">
+                    <div>
+                        <table class="table table-fondo table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center text-black estilo-letra-mascota">Mascota</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Propietario</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Servicio</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Fecha Cita</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Hora Cita</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Estado</th>
+                                    <th class="text-center text-black estilo-letra-mascota">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="citas : ${citas}" th:if="${citas.Estado == 'Registrado'}" >
+                                    <td class=" text-black estilo-letra-mascota" th:text="${citas.mascota.nombre}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${citas.propietario.nombre}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${citas.servicio.descripcion}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${citas.fechaCita}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${citas.horaCita}"></td>
+                                    <td class=" text-black estilo-letra-mascota" th:text="${citas.Estado}"></td>
+                                    <td class="d-flex">
+                                        <a id="btneditarAtencion" th:href="@{/formularioAtencion/} + ${citas.id}"
+                                            class="btn btn-warning me-1" type="submit"><img src="../imagenes/editar.png"
+                                            alt="editar" height="30" width="30"></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav th:replace="paginator-nav :: paginator"></nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="layout :: footer"></footer>
+</body>
+
+</html>

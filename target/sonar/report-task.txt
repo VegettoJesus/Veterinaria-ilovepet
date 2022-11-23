@@ -1,0 +1,6 @@
+projectKey=com.veterinaria:proyecto_veterinaria
+serverUrl=https://sonar-test.bit2bittest.com
+serverVersion=9.4.0.54424
+dashboardUrl=https://sonar-test.bit2bittest.com/dashboard?id=com.veterinaria%3Aproyecto_veterinaria
+ceTaskId=AYSbyeN3pg69nE_u4j1K
+ceTaskUrl=https://sonar-test.bit2bittest.com/api/ce/task?id=AYSbyeN3pg69nE_u4j1K
