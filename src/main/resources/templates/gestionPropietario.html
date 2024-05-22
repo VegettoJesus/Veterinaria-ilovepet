@@ -46,24 +46,24 @@
                         <table class="table table-fondo table-striped">
                             <thead>
                                 <tr>
+                                    <th class="text-center text-black estilo-letra-mascota">DNI</th>
                                     <th class="text-center text-black estilo-letra-mascota">Nombre</th>
                                     <th class="text-center text-black estilo-letra-mascota">Direccion</th>
                                     <th class="text-center text-black estilo-letra-mascota">Celular</th>
-                                    <th class="text-center text-black estilo-letra-mascota">Medio Pago</th>
                                     <th class="text-center text-black estilo-letra-mascota">Email</th>
                                     <th class="text-center text-black estilo-letra-mascota">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr th:each="propietario : ${propietario}">
+                                    <td class="text-black estilo-letra-mascota" th:text="${propietario.dni}"></td>
                                     <td class="text-black estilo-letra-mascota" th:text="${propietario.nombre}"></td>
                                     <td class="text-black estilo-letra-mascota" th:text="${propietario.direccion}"></td>
                                     <td class="text-black estilo-letra-mascota" th:text="${propietario.celular}"></td>
-                                    <td class="text-black estilo-letra-mascota" th:text="${propietario.medioPago}"></td>
                                     <td class="text-black estilo-letra-mascota" th:text="${propietario.correo}"></td>
                                     <td>
                                         <a onclick="return Eliminar(this)" id="btn-eliminar-propietario" th:href="@{/eliminarPropietario/} + ${propietario.id}" class="btn btn-danger me-1"
-                                            type="submit"><img src="../imagenes/eliminar.png" alt="huella" height="30"
+                                            type="submit"><img src="../imagenes/eliminar.png" alt="eliminar" height="30"
                                                 width="30"></a>
                                         <a id="editProp" th:href="@{/formularioPropietario/} + ${propietario.id}"
                                             class="btn btn-warning me-1" type="submit"><img src="../imagenes/editar.png"

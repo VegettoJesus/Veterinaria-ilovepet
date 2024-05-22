@@ -11,4 +11,7 @@ public interface PropietarioService {
     public void save(Propietario propietario);
     public Propietario findOne(long id);
     public void delete(Long id);
+    public Propietario findByDNI(String dni);
+    public List<Propietario> findByDniLike(String dni);
+    public boolean buscarCliente(String dni);
 }

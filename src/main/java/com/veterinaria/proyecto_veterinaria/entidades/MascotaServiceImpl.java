@@ -45,5 +45,8 @@ public class MascotaServiceImpl implements MascotaService{
         mascotaRepository.deleteById(id);
         
     }
+    public List<Mascota> findByPropietario(Propietario propietario) {
+        return mascotaRepository.findByPropietario(propietario);
+    }
     
 }

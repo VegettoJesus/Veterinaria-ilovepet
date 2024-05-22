@@ -11,6 +11,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
 @Entity
 @Table(name = "mascota")
 public class Mascota {
@@ -96,6 +97,7 @@ public class Mascota {
     public void setEstatura(float estatura) {
         this.estatura = estatura;
     }
+
     public LocalDateTime getFechaRegistro() {
         return fechaRegistro;
     }
@@ -103,6 +105,7 @@ public class Mascota {
     public void setFechaRegistro(LocalDateTime fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
+
     public String getSexo() {
         return Sexo;
     }
@@ -136,10 +139,12 @@ public class Mascota {
     }
 
     @PrePersist
-    public void asignarFechaRegistro(){
+    public void asignarFechaRegistro() {
         fechaRegistro = LocalDateTime.now();
     }
+
     
+
     public Mascota(Long id, @NotEmpty String nombre, @NotEmpty String especie, @NotEmpty String raza,
             @NotNull Integer edad, @NotNull float estatura, LocalDateTime fechaRegistro, @NotEmpty String sexo,
             @NotEmpty String color, @NotNull float peso, Propietario propietario) {
@@ -155,6 +160,8 @@ public class Mascota {
         this.peso = peso;
         this.propietario = propietario;
     }
+
+    
 
     public Mascota(@NotEmpty String nombre, @NotEmpty String especie, @NotEmpty String raza, @NotNull Integer edad,
             @NotNull float estatura, LocalDateTime fechaRegistro, @NotEmpty String sexo, @NotEmpty String color,
@@ -178,9 +185,5 @@ public class Mascota {
     public String toString() {
         return nombre;
     }
-
-    
-
-    
 
 }

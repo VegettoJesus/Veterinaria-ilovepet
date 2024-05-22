@@ -1,6 +1,7 @@
 package com.veterinaria.proyecto_veterinaria.entidades;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -14,4 +15,5 @@ public interface CitasService {
     public void delete(Long id);
     public List<Citas> ordenarDesc();
     public List<Citas> listaAtendidos();
+    boolean existsByFechaCitaAndHoraCitaAndServicio(Date fechaCita, String horaCita, Servicio servicio);
 }

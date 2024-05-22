@@ -11,4 +11,7 @@ public interface ServicioService {
     public void save(Servicio servicio);
     public Servicio findOne(long id);
     public void delete(Long id);
+    public List<Servicio> findByTipoMascota(Long tipo_mascota);
+    
+    
 }

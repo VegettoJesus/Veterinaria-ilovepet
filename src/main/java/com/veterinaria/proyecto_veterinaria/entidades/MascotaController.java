@@ -86,6 +86,7 @@ public class MascotaController {
         modelo.put("titulo","Registrar Mascota");
         return "formularioMascota";
     }
+    
 
     @PostMapping("/formularioMascota")
     public String guardarMascota(@Valid Mascota mascota,BindingResult result,Model modelo, RedirectAttributes flash, SessionStatus status){  

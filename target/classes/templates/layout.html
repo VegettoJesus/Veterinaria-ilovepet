@@ -8,103 +8,96 @@
     <link rel="icon" th:href="@{/imagenes/huella.png}" alt="huella">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link th:href="@{/css/misEstilos.css}" rel="stylesheet" type="text/css" />
-    <script>
-        function Eliminar(opcion)
-        {
-            event.preventDefault();
-
-            Swal.fire({
-                title: '¿Estas seguro?',
-                text: "¡No podrás revertir esto!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Si',
-                allowOutsideClick: false,
-                allowEscapeKey: false
-            }).then((result) => {
-                if (result.isConfirmed) {
-
-                    Swal.fire({
-                        title: 'Eliminar',
-                        text: 'Su registro ha sido eliminado.',
-                        icon: 'success',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            location.href = opcion.href;
-                        }
-                    });
-
-                }
-            });
-        }
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
 </head>
 
 <!--SIDEBAR-->
 
 <body>
-    <div th:fragment="SidebarAdmin" class="d-flex flex-column flex-shrink-0 p-3 bg-light sliderbar bar">
-        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none ms-4">
-            <span class="fs-1"><img src="../imagenes/huella.png" alt="huella" height="170" width="170">
-                <h1>I Love Pet</h1>
-            </span>
-        </a>
-        <hr>
-        <ul class="nav nav-tabs flex-column mb-auto">
+    <div th:fragment="SidebarAdmin" class="sidebar">
+        <div class="logo_content">
+            <div class="logo">
+                <img src="../imagenes/huella.png" alt="huella" height="35" width="35">
+                <div class="logo_name">I Love Pet</div>
+            </div>
+            <i class="bi bi-justify" id="btn_menu"></i>
+        </div>
+        <ul class="nav_list">
             <li class="nav-item">
-                <a  th:href="@{/gestionAdmin}" href="../pages/menu-administrador.html" class="nav-link link-dark estilo-letra-mascota" aria-current="page"><img
-                        alt="agregar-empleados" width="50px" height="40px" src="../imagenes/agregar-usuario.png">
-                    Gestión Empleados
+                <a  th:href="@{/gestionAdmin}" href="../pages/menu-administrador.html" class="" aria-current="page">
+                    <i class="bi bi-person-vcard"></i>
+                    <span class="links_name">Empleados</span>
                 </a>
+                <span class="tooltip">Empleados</span>
             </li>
             <li class="nav-item">
-                <a id="agProp" th:href="@{/gestionPropietario}" href="../pages/agregar-propietarios.html" class="nav-link link-dark estilo-letra-mascota"><img
-                        alt="agregar-propietario-mascota" width="50px" height="40px"
-                        src="../imagenes/agregar-propietario-mascota.png">
-                    Agregar Propietarios
+                <a id="agProp" th:href="@{/gestionPropietario}" href="../pages/agregar-propietarios.html" class="">
+                    <i class="bi bi-person-fill-add"></i>
+                    <span class="links_name">Propietarios</span>
                 </a>
+                <span class="tooltip">Propietarios</span>
+            </li>
+            <li class="nav-item img-container">
+                <a id="agMasc" th:href="@{/gestionMascota}" href="../pages/agregar-mascota.html" class="">
+                    <i class="imgHuella" ></i>
+                    <span class="links_name">Mascotas</span>
+                </a>
+                <span class="tooltip">Mascotas</span>
             </li>
             <li class="nav-item">
-                <a id="agMasc" th:href="@{/gestionMascota}" href="../pages/agregar-mascota.html" class="nav-link link-dark estilo-letra-mascota"><img alt="agregar-mascota"
-                        width="50px" height="40px" src="../imagenes/agregar-mascota.png">
-                    Agregar Mascotas
+                <a id="productos" th:href="@{/menu-producto}"  class="">
+                    <i class="bi bi-box-seam"></i>
+                    <span class="links_name">Productos</span>
                 </a>
+                <span class="tooltip">Productos</span>
             </li>
             <li class="nav-item">
-                <a id="productos" th:href="@{/menu-producto}"  class="nav-link link-dark estilo-letra-mascota"><img alt="productos" width="50px"
-                        height="40px" src="../imagenes/productos.png">
-                    Productos
+                <a id="Servicios" th:href="@{/menu-servicio}" class="">
+                    <i class="bi bi-shop"></i>
+                    <span class="links_name">Servicios</span>
                 </a>
+                <span class="tooltip">Servicios</span>
             </li>
             <li class="nav-item">
-                <a id="Servicios" th:href="@{/menu-servicio}" class="nav-link link-dark estilo-letra-mascota"><img alt="servicios" width="50px" height="40px"
-                        src="../imagenes/servicios.png">
-                    Servicios
+                <a id="Citas" th:href="@{/gestionCitas}" class="">
+                    <i class="bi bi-calendar-plus"></i>
+                    <span class="links_name">Citas</span>
                 </a>
+                <span class="tooltip">Citas</span>
             </li>
             <li class="nav-item">
-                <a id="Citas" th:href="@{/gestionCitas}" class="nav-link link-dark estilo-letra-mascota"><img alt="citas" width="50px" height="40px"
-                        src="../imagenes/citas.png">
-                    Citas
+                <a id="Atenciones" th:href="@{/gestionAtencion}" class="">
+                    <i class="bi bi-clipboard2-check"></i>
+                    <span class="links_name">Atenciones</span>
                 </a>
+                <span class="tooltip">Atenciones</span>
             </li>
             <li class="nav-item">
-                <a id="Atenciones" th:href="@{/gestionAtencion}" class="nav-link link-dark estilo-letra-mascota"><img alt="atenciones" width="50px" height="40px"
-                        src="../imagenes/atencion.png">
-                    Atenciones
+                <a href="#">
+                    <i class="bi bi-gear"></i>
+                    <span class="links_name">Configuraciones</span>
                 </a>
+                <span class="tooltip">Configuraciones</span>
             </li>
         </ul>
-        <hr>
-        <div>
-            <a>
-                <li class="list-group-item  estilo-letra-mascota" sec:autorize="isAuthenticated()"><a class="dropdown-item" id="logout" th:href="@{/logout}">Cerrar Sesión</a></li>
-            </a>
+        <div class="profile_content">
+            <div class="profile">
+                <div class="profile_details">
+                    <img src="../imagenes/perfil-hombre.jpg" alt="perfil">
+                    <div class="name_job">
+                        <div class="name" th:text="${nombreEmpleado + ' ' + apellidoEmpleado}"></div>
+                        <div class="job" th:text="${rolEmpleado}"></div>
+                    </div>
+                </div>
+                <a id="logout" th:href="@{/logout}">
+                    <i class="bi bi-box-arrow-in-left" id="log_out"></i>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -133,16 +126,20 @@
                 </div>
             </div>
         </div>
-        <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
-        <script src="sidebars.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
-        <script src="funciones.js"></script>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
+        <script src="/js/sidebarAnimacion.js"></script>
     </footer>
 
 </body>

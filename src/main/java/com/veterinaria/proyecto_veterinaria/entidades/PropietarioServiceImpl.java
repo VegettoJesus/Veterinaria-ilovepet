@@ -45,5 +45,22 @@ public class PropietarioServiceImpl implements PropietarioService {
         propietarioRepository.deleteById(id);
         
     }
+
+    @Override
+    public Propietario findByDNI(String dni) {
+        return propietarioRepository.findByDni(dni);
+    }
+
+    @Override
+    public List<Propietario> findByDniLike(String dni) {
+        return propietarioRepository.findFirst20ByDniLike(dni);
+    }
+
+    @Override
+    public boolean buscarCliente(String dni) {
+        int cantidadClientes = propietarioRepository.existeClientePorDNI(dni);
+        return cantidadClientes > 0;
+    }
+
     
 }

@@ -1,6 +1,7 @@
 package com.veterinaria.proyecto_veterinaria.entidades;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -11,4 +12,7 @@ public interface CitasRepository extends PagingAndSortingRepository<Citas,Long>{
 
     @Query(value="SELECT*FROM CITA WHERE cita.estado = 'Atendido'", nativeQuery = true)
     public List<Citas> listaAtendidos();
+
+    boolean existsByFechaCitaAndHoraCitaAndServicio(Date fechaCita, String horaCita, Servicio servicio);
+
 }

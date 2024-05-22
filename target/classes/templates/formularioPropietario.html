@@ -24,6 +24,10 @@
                             <form th:action="@{/formularioPropietario}" method="post" th:object="${propietario}"
                                 class="row g-3">
                                 <input type="hidden" th:field="*{id}" th:value="${propietario.id}" />
+                                <div class="col-md-6 position-relative">
+                                    <label class="text-diseño-rc2">DNI</label>
+                                    <input id="dniPropietario" type="number" th:field="*{dni}" class="form-control" placeholder="Ingresar DNI" required>
+                                </div>
                                 <div class="col-md-12 position-relative">
                                     <label class="text-diseño-rc2">Nombre Completo</label>
                                     <input id="nomPropietario" type="text" th:field="*{nombre}" class="form-control" placeholder="Ingrese nombre completo" required>
@@ -41,13 +45,7 @@
                                     <label class="text-diseño-rc2">Celular</label>
                                     <input id="celPropietario" type="number" th:field="*{celular}" class="form-control" placeholder="Ingresar numero" required>
                                 </div>
-
-                                <div class="col-md-6 position-relative">
-                                    <label class="form-label text-diseño-rc2">Medio de Pago</label>
-                                    <select class="form-select form-select mb-3" th:field="*{medioPago}" required>
-                                        <option value="Efectivo">Efectivo</option>
-                                    </select>
-                                </div>
+                                
                                 <div class="col-12 d-grid">
                                     <button type="submit" id="btn-Propietario" class="btn btn-fondo-rc text-light">REGISTRAR</button>
                                 </div>

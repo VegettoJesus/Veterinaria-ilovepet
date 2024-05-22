@@ -45,6 +45,10 @@
       <div class="bg-menuProd rounded-pill p-3 my-5 col-md-8" height="100" width="100">
         <h1 class="text-center text-diseño-mp">Bienvenido al Catálogo</h1>
       </div>
+      <a th:href="@{/ListarCarrito}" class=" m-auto bg-dark p-3 card shadow-lg rounded" type="submit">
+        <img src="../imagenes/petShop.png" alt="petShop" height="100" width="100">
+        <span class="position-absolute  translate-middle badge rounded-pill bg-danger" th:text="${TotalCantidad}"></span>
+      </a> 
     </div>
 
     <div class="row g-0">
@@ -56,8 +60,9 @@
         <div class="card-body">
           <h5 class="card-title text-center text-diseño-mpc" th:text="${producto.nombre}"></h5>
           <p class="card-text estilo-letra-mascota" th:text="${producto.descripcion}"></p>
-          <a href="#" class="btn btn-verDetalle text-diseño-mpc" th:href="@{/detalleProducto/}+${producto.id}">Ver Detalle</a>
+          <a class="btn btn-verDetalle text-diseño-mpc" th:href="@{/detalleProducto/}+${producto.id}">Ver Detalle</a>
         </div>
+        
       </div>
     </div>
     <nav th:replace="paginator-nav :: paginator"></nav>

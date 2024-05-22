@@ -11,4 +11,5 @@ public interface MascotaService {
     public void save(Mascota mascota);
     public Mascota findOne(long id);
     public void delete(Long id);
+    public List<Mascota> findByPropietario(Propietario propietario);
 }

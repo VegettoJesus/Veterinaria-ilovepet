@@ -46,5 +46,9 @@ public class ServicioServiceImpl implements ServicioService{
         servicioRepository.deleteById(id);
         
     }
-    
+
+    @Override
+    public List<Servicio> findByTipoMascota(Long tipoMascota) {
+        return servicioRepository.findByTipoMascota(tipoMascota);
+    }
 }

@@ -52,8 +52,7 @@ public class EmpleadoController {
             flash.addFlashAttribute("error","El empleado no existe en la base de datos");
             return "redirect:/gestionAdmin";
         }
-        List<Rol> listaRol = rolservice.findAll();
-        modelo.put("listaRol",listaRol);
+        modelo.put("roles", empleado.getTipoRol());
         modelo.put("empleado", empleado);
         modelo.put("titulo","Detalles del empleado " + empleado.getNombre()+ " " + empleado.getApellido());
         return "detalleEmpleado";

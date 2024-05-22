@@ -13,4 +13,5 @@ public interface EmpleadoService extends UserDetailsService{
     public void save(empleadoLogin empleadoLogin);
     public empleadoLogin findOne(long id);
     public void delete(Long id);
+    public empleadoLogin findByEmail(String email);
 }

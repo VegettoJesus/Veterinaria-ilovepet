@@ -6,15 +6,15 @@ import javax.validation.constraints.NotNull;
 public class ProductoVenta extends Producto{
     private float cantidad;
 
-    public ProductoVenta(Long id, @NotEmpty String codigo, @NotEmpty String nombre, @NotNull float precio,
+    public ProductoVenta(Long id, @NotEmpty String codigo, @NotEmpty String nombre, @NotNull float precio, float dscto,
             @NotNull Long stock, float cantidad) {
-        super(id, codigo, nombre, precio, stock);
+        super(id, codigo, nombre, precio, dscto, stock);
         this.cantidad = cantidad;
     }
 
-    public ProductoVenta(@NotEmpty String codigo, @NotEmpty String nombre, @NotNull float precio, @NotNull Long stock,
+    public ProductoVenta(@NotEmpty String codigo, @NotEmpty String nombre, @NotNull float precio, @NotNull Long stock, float dscto,
             float cantidad) {
-        super(codigo, nombre, precio, stock);
+        super(codigo, nombre, precio, dscto,stock);
         this.cantidad = cantidad;
     }
 

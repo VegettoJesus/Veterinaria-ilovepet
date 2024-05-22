@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>opciones-mascotas</title>
+</head>
+
+<body>
+    <option value="" selected="selected">-Seleccionar Mascota-</option>
+    <option th:each="mascota : ${mascotas}" th:value="${mascota.id}" th:text="${mascota.nombre}"></option>
+</body>
+
+</html>

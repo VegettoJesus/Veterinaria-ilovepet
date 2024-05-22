@@ -1,7 +1,7 @@
 package com.veterinaria.proyecto_veterinaria.entidades;
 
+import java.util.Date;
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class CitasServiceImpl implements CitasService{
+public class CitasServiceImpl implements CitasService {
 
     @Autowired
     private CitasRepository citasRepository;
@@ -31,7 +31,7 @@ public class CitasServiceImpl implements CitasService{
     @Transactional
     public void save(Citas citas) {
         citasRepository.save(citas);
-        
+
     }
 
     @Override
@@ -55,4 +55,10 @@ public class CitasServiceImpl implements CitasService{
     public List<Citas> listaAtendidos() {
         return citasRepository.listaAtendidos();
     }
+
+    @Override
+    public boolean existsByFechaCitaAndHoraCitaAndServicio(Date fechaCita, String horaCita, Servicio servicio) {
+        return citasRepository.existsByFechaCitaAndHoraCitaAndServicio(fechaCita, horaCita, servicio);
+    }
+    
 }

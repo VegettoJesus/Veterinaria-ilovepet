@@ -66,8 +66,8 @@ class ProductoServiceImplTest {
     @Test
     void testFindAll2() {
       when(productoRepository.findAll()).thenReturn(Arrays.asList(
-        new Producto(40L,"Manuel","Cepillo",200,50L),
-        new Producto(20L,"Pepe","Hueso",100,20L)
+        new Producto(40L,"Manuel","Cepillo",200,0,50L),
+        new Producto(20L,"Pepe","Hueso",100,0,20L)
       ));
 
       @SuppressWarnings("unchecked")

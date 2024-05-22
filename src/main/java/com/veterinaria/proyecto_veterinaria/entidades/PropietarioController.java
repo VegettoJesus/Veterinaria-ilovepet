@@ -1,5 +1,7 @@
 package com.veterinaria.proyecto_veterinaria.entidades;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,6 +28,9 @@ public class PropietarioController {
 
     @Autowired
     private PropietarioService propietarioService;
+
+    @Autowired
+    private MascotaService mascotaService;
 
     @GetMapping("/gestionPropietario")
     public String listarPropietarios(@RequestParam(name = "page",defaultValue = "0")int page, Model model){
@@ -84,4 +90,6 @@ public class PropietarioController {
         }
         return "redirect:/gestionPropietario";
     }
+
+    
 }

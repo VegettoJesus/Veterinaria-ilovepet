@@ -58,6 +58,10 @@
                                             <label class="estilo-letra-mascota" th:text="${empleado.usuario}" ></label>
                                         </div>
                                     </div>
+                                    <div class="col-md-10 position-relative">
+                                        <label for="validationTooltip07" class="form-label text-diseño-detalle">Roles:</label>
+                                        <label class="estilo-letra-mascota" th:each="rol : ${roles}" th:text="${rol.nombre}" ></label>
+                                    </div>
                                     <a type="submit" id="btn-regresar" th:href="@{/gestionAdmin}" class="btn btn-fondo-rc text-light">Regresar</a>
 
                                 </div>
