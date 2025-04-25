@@ -47,7 +47,7 @@ public class EmpleadoServiceImpl implements EmpleadoService{
     @Transactional
     public void save(empleadoLogin empleadoLogin) {
         if(empleadoLogin.getId()==null){
-            empleadoLogin = new empleadoLogin(empleadoLogin.getDni(), empleadoLogin.getNombre(), empleadoLogin.getApellido(), empleadoLogin.getFechaNacimiento(), empleadoLogin.getCelular(), empleadoLogin.getEmail(), empleadoLogin.getDireccion(), empleadoLogin.getUsuario(), passwordEncoder.encode(empleadoLogin.getPassword()), empleadoLogin.getSexo(), empleadoLogin.getTipoRol());
+            empleadoLogin = new empleadoLogin(empleadoLogin.getDni(), empleadoLogin.getNombre(), empleadoLogin.getApellido(), empleadoLogin.getFechaNacimiento(), empleadoLogin.getCelular(), empleadoLogin.getEmail(), empleadoLogin.getDireccion(), empleadoLogin.getUsuario(), passwordEncoder.encode(empleadoLogin.getPassword()), empleadoLogin.getSexo(), empleadoLogin.getTipoRol(), empleadoLogin.getImagen());
         }
         if(empleadoLogin.getId()!=null){
             empleadoLogin.setPassword(passwordEncoder.encode(empleadoLogin.getPassword()));

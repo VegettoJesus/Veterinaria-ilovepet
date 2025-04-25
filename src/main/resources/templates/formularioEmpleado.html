@@ -20,7 +20,7 @@
                                 <h1 class="fs-1 text-diseño-rc2 text-center" th:text="${titulo}"></h1>
                             </div>
                             <hr class="border border-light" />
-                            <form th:action="@{/formularioEmpleado}" method="post" th:object="${empleado}" class="row g-3">
+                            <form th:action="@{/formularioEmpleado}" method="post" enctype="multipart/form-data" th:object="${empleado}" class="row g-3">
                                 <input type="hidden" th:field="*{id}" th:value="${empleado.id}" />
                                 <div class="col-md-4 position-relative">
                                     <label class="form-label text-diseño-rc2">DNI</label>
@@ -85,6 +85,10 @@
                                         <option th:each="rol : ${rol}" th:value="${rol.id}" th:text="${rol.nombre}"></option>
                                     </select>
                                 </div>
+                                <div class="col-md-6 position-relative">
+                                    <label class="form-label text-diseño-rc2">Foto</label>
+                                    <input type="file" id="imagenFile" name="imagenFile" class="form-control" accept="image/*">
+                                </div>                                
                                 <div class="col-12 d-grid">
                                     <button type="submit" id="btn-registrar" class="btn btn-fondo-rc text-light">REGISTRAR</button>
                                 </div>

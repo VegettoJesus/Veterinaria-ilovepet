@@ -37,15 +37,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/include/**","/css/**","/icons/**","/imagenes/**","/js/**","/layer/**","/fonts/**").permitAll()
+        http.authorizeRequests()
+                .antMatchers(
+                    "/include/**", 
+                    "/css/**", 
+                    "/icons/**", 
+                    "/imagenes/**", 
+                    "/js/**", 
+                    "/layer/**", 
+                    "/fonts/**",
+                    "/imagenPerfil/**" // ✅ Agrega esta línea
+                ).permitAll()
                 .anyRequest().authenticated()
-                .and()
-            .formLogin()
+            .and()
+                .formLogin()
                 .loginPage("/login")
                 .permitAll()
                 .defaultSuccessUrl("/gestionAdmin")
                 .failureUrl("/login?error=true")
-                .and()
+            .and()
                 .logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
@@ -53,4 +63,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
     }
+
 }

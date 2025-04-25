@@ -13,12 +13,17 @@
                 <div class="card mb-3 shadow-lg p-3 mb-5 bg-body rounded position-absolute top-50 start-50 translate-middle"
                     style="max-width: 700px;">
                     <div class="row g-0">
-                        <div class="col-md-4 ">
-                            <img th:if="${empleado.sexo == 'F'}" src="../imagenes/perfil-mujer.jpg" class="img-fluid rounded-start position-relative top-50 start-50 translate-middle"
-                            alt="perfil">
-                            <img th:if="${empleado.sexo == 'M'}" src="../imagenes/perfil-hombre.jpg" class="img-fluid rounded-start position-relative top-50 start-50 translate-middle"
-                            alt="perfil">
+                        <div class="col-md-4">
+                            <img th:if="${empleado.imagen != null and !empleado.imagen.isEmpty()}" 
+                                 th:src="@{${empleado.imagen}}" 
+                                 class="img-fluid rounded-start position-relative top-50 start-50 translate-middle"
+                                 alt="perfil">
+                            <img th:if="${empleado.imagen == null or empleado.imagen.isEmpty()}" 
+                                 th:src="@{${empleado.sexo == 'F' ? '../imagenes/perfil-mujer.jpg' : '../imagenes/perfil-hombre.jpg'}}" 
+                                 class="img-fluid rounded-start position-relative top-50 start-50 translate-middle"
+                                 alt="perfil">
                         </div>
+                        
                         <div class="col-md-8">
                             <div class="card-body pe-3">
                                 <h4 class="card-title text-center pb-3 fs-2 text-diseño-detalle" th:text="${titulo}"></h4>

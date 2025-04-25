@@ -71,6 +71,9 @@ public class empleadoLogin implements Serializable {
     @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id"))
     private List<Rol> tipoRol;
 
+    private String imagen;
+
+
     public Long getId() {
         return id;
     }
@@ -167,9 +170,17 @@ public class empleadoLogin implements Serializable {
         this.tipoRol = tipoRol;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
     public empleadoLogin(Long id, @NotNull Long dni, @NotEmpty String nombre, @NotEmpty String apellido,
             @NotNull Date fechaNacimiento, @NotNull Integer celular, @Email String email, @NotEmpty String direccion,
-            @NotEmpty String usuario, @NotEmpty String password, @NotEmpty String sexo, @NotEmpty List<Rol> tipoRol) {
+            @NotEmpty String usuario, @NotEmpty String password, @NotEmpty String sexo, @NotEmpty List<Rol> tipoRol, String imagen) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
@@ -182,12 +193,13 @@ public class empleadoLogin implements Serializable {
         this.password = password;
         this.sexo = sexo;
         this.tipoRol = tipoRol;
+        this.imagen = imagen;
     }
 
     
     public empleadoLogin(@NotNull Long dni, @NotEmpty String nombre, @NotEmpty String apellido,
             @NotNull Date fechaNacimiento, @NotNull Integer celular, @Email String email, @NotEmpty String direccion,
-            @NotEmpty String usuario, @NotEmpty String password, @NotEmpty String sexo, @NotEmpty List<Rol> tipoRol) {
+            @NotEmpty String usuario, @NotEmpty String password, @NotEmpty String sexo, @NotEmpty List<Rol> tipoRol, String imagen) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -199,13 +211,14 @@ public class empleadoLogin implements Serializable {
         this.password = password;
         this.sexo = sexo;
         this.tipoRol = tipoRol;
+        this.imagen = imagen;
     }
 
     
 
     public empleadoLogin(@NotNull Long dni, @NotEmpty String nombre, @NotEmpty String apellido,
             @NotNull Date fechaNacimiento, @NotNull Integer celular, @Email String email, @NotEmpty String direccion,
-            @NotEmpty String usuario, @NotEmpty String password, @NotEmpty String sexo) {
+            @NotEmpty String usuario, @NotEmpty String password, @NotEmpty String sexo, String imagen) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -216,6 +229,7 @@ public class empleadoLogin implements Serializable {
         this.usuario = usuario;
         this.password = password;
         this.sexo = sexo;
+        this.imagen = imagen;
     }
 
     public empleadoLogin(@NotEmpty String password) {
@@ -235,6 +249,7 @@ public class empleadoLogin implements Serializable {
     public String toString() {
         return nombre + apellido;
     }
+
 
     
 

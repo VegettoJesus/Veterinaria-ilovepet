@@ -23,6 +23,8 @@ public class GlobalControllerAdvice {
              model.addAttribute("nombreEmpleado", empleado.getNombre());
              model.addAttribute("apellidoEmpleado", empleado.getApellido());
              model.addAttribute("idEmpleado", empleado.getId());
+             model.addAttribute("imagenEmpleado", empleado.getImagen());
+             model.addAttribute("sexoEmpleado", empleado.getSexo());
                 if (!empleado.getTipoRol().isEmpty()) {
                     model.addAttribute("rolEmpleado", empleado.getTipoRol().get(0).getNombre());
                 }

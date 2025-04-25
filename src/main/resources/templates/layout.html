@@ -88,7 +88,15 @@
         <div class="profile_content">
             <div class="profile">
                 <div class="profile_details">
-                    <img src="../imagenes/perfil-hombre.jpg" alt="perfil">
+                    <img th:if="${imagenEmpleado != null and !imagenEmpleado.isEmpty()}"
+                    th:src="@{${imagenEmpleado}}" alt="perfil"/>
+
+                    <img th:if="${imagenEmpleado == null or imagenEmpleado.isEmpty()} and ${sexoEmpleado == 'M'}"
+                        src="../imagenes/perfil-hombre.jpg" alt="perfil"/>
+
+                    <img th:if="${imagenEmpleado == null or imagenEmpleado.isEmpty()} and ${sexoEmpleado == 'F'}"
+                        src="../imagenes/perfil-mujer.jpg" alt="perfil"/>
+
                     <div class="name_job">
                         <div class="name" th:text="${nombreEmpleado + ' ' + apellidoEmpleado}"></div>
                         <div class="job" th:text="${rolEmpleado}"></div>
