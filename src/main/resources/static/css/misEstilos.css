@@ -13,7 +13,9 @@ body {
     min-height: 100vh;
     width: 100%;
 }
-
+main{
+    height: 100vh;
+}
 .fondo-mascota {
     background: linear-gradient(196deg, #000000, #847e7b);
     background-size: 120% 120%;
@@ -216,12 +218,32 @@ body {
 
 /*SIDEBAR*/
 .sidebar {
+    position: fixed;
     top: 0;
     left: 0;
+    height: -webkit-fill-available; 
     width: 78px;
     background: #11101d;
     padding: 6px 14px;
     transition: all 0.5s ease;
+    z-index: 1000; 
+}
+.sidebar-content {
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+}
+.sidebar-content::-webkit-scrollbar {
+    width: 0px; /* Chrome, Safari */
+}
+.sidebar-content:hover {
+    scrollbar-width: thin;
+}
+.sidebar-content:hover::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar-content:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
 }
 .sidebar.active{
     width: 300px;
@@ -253,7 +275,7 @@ body {
 .sidebar #btn_menu {
     position: absolute;
     color: #fff;
-    left: 3%;
+    left: 47%;
     top: 6px;
     font-size: 20px;
     height: 50px;
@@ -263,7 +285,7 @@ body {
     transform: translateX(-50%);
 }
 .sidebar.active #btn_menu{
-    left: 17%;
+    left: 87%;
 }
 
 .sidebar ul {
@@ -433,6 +455,14 @@ body {
 .sidebar.active .profile #log_out {
     left: 88%;
     
+}
+.main-content {
+    margin-left: 80px !important;
+    transition: margin-left 0.5s ease;
+}
+
+.sidebar.active ~ .main-content {
+    margin-left: 305px !important;
 }
 
 .crear-empleado {
@@ -656,23 +686,27 @@ form {
     font-family: 'letra-mascotas';
     font-weight: bolder;
     color: white;
-    background: linear-gradient(270deg, rgb(63, 80, 102) 29%, rgb(62, 81, 110) 59%, rgb(42, 59, 85)100%);
+    /* background: linear-gradient(270deg, rgb(63, 80, 102) 29%, rgb(62, 81, 110) 59%, rgb(42, 59, 85)100%); */
+    background: linear-gradient(270deg, rgb(82, 84, 84) 29%, rgb(70, 76, 86) 59%, rgb(83, 104, 135)100%);
 }
 
 .degradoPaginatorActive {
     font-family: 'letra-mascotas';
     font-weight: bolder;
     color: white;
-    background: linear-gradient(270deg, rgb(107, 136, 172) 29%, rgb(95, 124, 167) 59%, rgb(80, 113, 163)100%);
+    /* background: linear-gradient(270deg, rgb(107, 136, 172) 29%, rgb(95, 124, 167) 59%, rgb(80, 113, 163)100%); */
+    background: linear-gradient(270deg, rgb(105, 107, 107) 29%, rgb(92, 97, 105) 59%, rgb(111, 126, 147)100%);
 }
 
 .degradoPaginatorActive:hover {
     color: yellow;
-    background: linear-gradient(270deg, rgb(138, 176, 221) 29%, rgb(116, 152, 206) 59%, rgb(105, 149, 216)100%);
+    /* background: linear-gradient(270deg, rgb(138, 176, 221) 29%, rgb(116, 152, 206) 59%, rgb(105, 149, 216)100%); */
+    background: linear-gradient(270deg, rgb(82, 84, 84) 29%, rgb(70, 76, 86) 59%, rgb(83, 104, 135)100%);
+
 }
 
 .select-oscuro {
-    background: linear-gradient(270deg, rgb(20, 208, 167) 29%, rgb(47, 192, 146) 59%, rgb(79, 204, 152)100%);
+    background: linear-gradient(270deg, rgb(38, 39, 39) 29%, rgb(44, 48, 54) 59%, rgb(58, 73, 95)100%);
     color: white;
     border-color: #000000;
 }
@@ -895,4 +929,29 @@ footer .huellitas {
     max-height: calc(50% - 2px); 
     overflow-y: auto; 
     cursor: pointer;
+}
+.card .card-body #tablaRoles_length label{
+    color: white;
+    font-family: 'letra-mascotas';
+    font-weight: bolder;
+}    
+.card .card-body #tablaRoles_length select{
+    background-color: white;
+    font-family: 'letra-mascotas';
+    font-weight: bolder;
+}
+.card .card-body .table-responsive .dataTables_info{
+    color: white;
+    font-family: 'letra-mascotas';
+    font-weight: bolder;
+}
+.card .card-body .table-responsive .dataTables_paginate{
+    color: white !important;
+    font-family: 'letra-mascotas' !important;
+    font-weight: bolder !important;
+} 
+.card .card-body .table-responsive .paginate_button{
+    color: white !important;
+    font-family: 'letra-mascotas' !important;
+    font-weight: bolder !important;
 }

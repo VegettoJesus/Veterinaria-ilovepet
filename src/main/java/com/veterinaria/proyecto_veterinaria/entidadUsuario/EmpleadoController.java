@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -18,21 +19,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lowagie.text.DocumentException;
-import com.veterinaria.proyecto_veterinaria.entidades.Rol;
 import com.veterinaria.proyecto_veterinaria.entidades.RolService;
 import com.veterinaria.proyecto_veterinaria.paginacion.PageRender;
 
@@ -51,29 +51,38 @@ public class EmpleadoController {
         return "login";
     }
 
-    @GetMapping("/detalleEmpleado/{id}")
-    public String verDetallesDelEmpleado(@PathVariable(value = "id") Long id, Map<String, Object> modelo,RedirectAttributes flash){
+    @GetMapping("/detalleEmpleado/modal/{id}")
+    @ResponseBody
+    public ResponseEntity<?> obtenerDetalleEmpleado(@PathVariable Long id) {
         empleadoLogin empleado = empleadoService.findOne(id);
-        if(empleado == null){
-            flash.addFlashAttribute("error","El empleado no existe en la base de datos");
-            return "redirect:/gestionAdmin";
+        if (empleado == null) {
+            return ResponseEntity.notFound().build();
         }
-        modelo.put("roles", empleado.getTipoRol());
-        modelo.put("empleado", empleado);
-        modelo.put("titulo","Detalles del empleado " + empleado.getNombre()+ " " + empleado.getApellido());
-        return "detalleEmpleado";
+        return ResponseEntity.ok(empleado);
     }
 
     @GetMapping("/gestionAdmin")
-    public String listarEmpleados(@Param("buscar") String buscar,@RequestParam(name = "page",defaultValue = "0")int page, Model model){
-        Pageable pageRequest = PageRequest.of(page,7);
-        Page<empleadoLogin> empleados = empleadoService.findAll(pageRequest);
-        PageRender<empleadoLogin> pageRender = new PageRender<>("/gestionAdmin",empleados);
-        model.addAttribute("empleados",empleados);
-        model.addAttribute("page",pageRender);
+    public String listarEmpleados(
+            @RequestParam(name = "buscar", required = false) String buscar,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            Model model) {
+
+        Pageable pageRequest = PageRequest.of(page, 7);
+        Page<empleadoLogin> empleados;
+
+        if (buscar != null && !buscar.trim().isEmpty()) {
+            empleados = empleadoService.buscarPorFiltro(buscar, pageRequest);
+        } else {
+            empleados = empleadoService.findAll(pageRequest);
+        }
+
+        PageRender<empleadoLogin> pageRender = new PageRender<>("/gestionAdmin?buscar=" + (buscar != null ? buscar : ""), empleados);
+
+        model.addAttribute("empleados", empleados);
+        model.addAttribute("page", pageRender);
         model.addAttribute("buscar", buscar);
+
         return "gestionAdmin";
-        
     }
  
     @GetMapping("/formularioEmpleado")
@@ -161,13 +170,39 @@ public class EmpleadoController {
         return "formularioEmpleado";
     }
     
-    @GetMapping("/eliminar/{id}")
-    public String eliminarCliente(@PathVariable(value = "id") Long id, RedirectAttributes flash){
-        if(id > 0){
+    @DeleteMapping("/gestionAdmin/eliminar/{id}")
+    public ResponseEntity<Map<String, Object>> deleteEmpleado(@PathVariable("id") Long id) {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            empleadoLogin empleado = empleadoService.findOne(id);
+
+            if (empleado != null && empleado.getImagen() != null && !empleado.getImagen().isEmpty()) {
+                
+                Path rutaCarpeta = Paths.get("src/main/resources/static").toAbsolutePath();
+                Path rutaImagen = rutaCarpeta.resolve(empleado.getImagen().substring(1)); 
+
+                try {
+                    Files.deleteIfExists(rutaImagen);
+                } catch (IOException e) {
+                }
+            }
+
             empleadoService.delete(id);
-            flash.addFlashAttribute("success","Cliente eliminado con exito");
+
+            response.put("success", true);
+            response.put("message", "Empleado eliminado exitosamente.");
+            response.put("status", "success");
+
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Hubo un error al eliminar el empleado.");
+            response.put("status", "error");
+            response.put("error", e.getMessage());
+            e.printStackTrace();
         }
-        return "redirect:/gestionAdmin";
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/exportarPDF")

@@ -5,85 +5,159 @@
     <meta charset="utf-8">
 </head>
 
-<body class="d-flex flex-column min-vh-100 bg-detalle-usuario" onload="modal()">
-    <div class="container">
-        <div th:if="${success != null}" class="alert alert-primary alert-dismissible fade show">
-            [[${success}]]>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </div>
-    <div class="container">
-        <div th:if="${warning != null}" class="alert alert-warning alert-dismissible fade show">
-            [[${warning}]]>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </div>
-    <div class="container">
-        <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show">
-            [[${error}]]>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </div>
-    <div class="container">
-        <div th:if="${info != null}" class="alert alert-info alert-dismissible fade show">
-            [[${info}]]>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </div>
+<body class="d-flex flex-column min-vh-100 bg-detalle-usuario">
     <main class="flex-grow-1 d-flex">
         <div th:replace="layout :: SidebarAdmin"></div>
-        <div class="py-4 me-auto  ms-auto">
-            <div  class="card table-hover">
-                <div class="card-header degradadoFondo ">GESTION DE EMPLEADOS</div>
-                <div class="card-body table-fondo">
-                    <div class="col-12 text-center">
-                        <a th:href="@{/formularioEmpleado}" id="btnRegEmpleado" class="btn btn-primary me-5 estilo-letra-mascota" type="submit"><img class="pe-1"
-                                src="../imagenes/salvar.png" alt="huella" height="30" width="30">Registrar Empleado</a>
-                        <a th:href="@{/GestionRol}" id="btnRegRol" class="btn btn-success me-5 estilo-letra-mascota" type="submit"><img class="pe-1"
-                            src="../imagenes/rol.png" alt="huella" height="30" width="30">Gestion Rol</a>
-                        <a th:href="@{/exportarPDF}" id="pdfEmpleado" class="btn btn-danger"><img class="pe-1"
-                            src="../imagenes/pdf.png" alt="pdf" height="30" width="30">PDF</a>
-                    </div> 
-                    <div>
-                        <table class="table table-fondo table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="text-center text-black estilo-letra-mascota">DNI</th>
-                                    <th class="text-center text-black estilo-letra-mascota">Nombre Completo</th>
-                                    <th class="text-center text-black estilo-letra-mascota">Usuario</th>
-                                    <th class="text-center text-black estilo-letra-mascota">Email</th>
-                                    <th class="text-center text-black estilo-letra-mascota">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="empleado : ${empleados}">
-                                    <td class=" text-black estilo-letra-mascota" th:text="${empleado.dni}"></td>
-                                    <td class=" text-black estilo-letra-mascota" th:text="${empleado.nombre} + ' '+ ${empleado.apellido}"></td>
-                                    <td class="text-black estilo-letra-mascota" th:text="${empleado.usuario}"></td>
-                                    <td class=" text-black estilo-letra-mascota" th:text="${empleado.email}"></td>
-                                    <td>
-                                        <a id="btn-ver" th:href="@{/detalleEmpleado/} + ${empleado.id}" class="btn btn-info me-1 "
-                                            type="submit"><img src="../imagenes/buscar.png" alt="huella" height="30"
-                                                width="30"></a>
-                                        <a onclick="return Eliminar(this)" id="btn-eliminar-empleado" th:href="@{/eliminar/} + ${empleado.id}" class="btn btn-danger me-1"
-                                            type="submit"><img src="../imagenes/eliminar.png" alt="huella" height="30"
-                                                width="30"></a>
-                                        <a id="btnEditar" th:href="@{/formularioEmpleado/} + ${empleado.id}"
-                                            class="btn btn-warning me-1" type="submit"><img src="../imagenes/editar.png"
-                                                alt="huella" height="30" width="30"></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+        <div class="py-4 w-100 main-content">
+            <div class="container-fluid">
+                <div class="card table-hover w-100">
+                    <div class="card-header degradadoFondo text-center">GESTION DE EMPLEADOS</div>
+                    <div class="card-body" style="background-color: #212529;">
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-auto">
+                                <a th:href="@{/formularioEmpleado}" id="btnRegEmpleado" class="btn btn-primary estilo-letra-mascota" type="submit">
+                                    <img class="pe-1" src="../imagenes/salvar.png" alt="huella" height="30" width="30"> Registrar Empleado
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-success estilo-letra-mascota" onclick="abrirModalRoles()">
+                                  <img class="pe-1" src="../imagenes/rol.png" alt="huella" height="30" width="30"> Gestión Rol
+                                </button>
+                              </div>
+                                                          
+                            <div class="col-auto">
+                                <a th:href="@{/exportarPDF}" id="pdfEmpleado" class="btn btn-danger estilo-letra-mascota">
+                                    <img class="pe-1" src="../imagenes/pdf.png" alt="pdf" height="30" width="30"> PDF
+                                </a>
+                            </div>
+                        </div>
+            
+                        <div class="table-responsive">
+                            <form th:action="@{/gestionAdmin}" method="get" class="mb-3 d-flex justify-content-end">
+                                <input type="text" name="buscar" class="form-control me-2 w-25 estilo-letra-mascota" th:value="${buscar}" placeholder="Buscar por nombre, usuario, DNI...">
+                                <button type="submit" class="btn btn-info estilo-letra-mascota">Buscar</button>
+                            </form>                            
+                            <table class="table table-dark table-hover w-100" style="text-align-last: center;">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center text-black estilo-letra-mascota">DNI</th>
+                                        <th class="text-center text-black estilo-letra-mascota">Nombre Completo</th>
+                                        <th class="text-center text-black estilo-letra-mascota">Usuario</th>
+                                        <th class="text-center text-black estilo-letra-mascota">Email</th>
+                                        <th class="text-center text-black estilo-letra-mascota">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="empleado : ${empleados}">
+                                        <td class="text-black estilo-letra-mascota" th:text="${empleado.dni}"></td>
+                                        <td class="text-black estilo-letra-mascota" th:text="${empleado.nombre} + ' '+ ${empleado.apellido}"></td>
+                                        <td class="text-black estilo-letra-mascota" th:text="${empleado.usuario}"></td>
+                                        <td class="text-black estilo-letra-mascota" th:text="${empleado.email}"></td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-detalle-empleado"
+                                                    th:attr="data-id=${empleado.id}">
+                                                    <img src="../imagenes/buscar.png" alt="ver" height="30" width="30">
+                                            </button>
+                                                                                                    
+                                            <a class="btn btn-danger me-1 btn-eliminar-empleado" 
+                                                th:attr="data-id=${empleado.id}">
+                                                <img src="../imagenes/eliminar.png" alt="eliminar" height="30" width="30">
+                                            </a>
+
+                                            <a id="btnEditar" th:href="@{/formularioEmpleado/} + ${empleado.id}" class="btn btn-warning me-1">
+                                                <img src="../imagenes/editar.png" alt="editar" height="30" width="30">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+            
                         <nav th:replace="paginator-nav :: paginator"></nav>
                     </div>
                 </div>
             </div>
+        </div>    
+        
+        <div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+               <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header degradadoFondo">
+                  <h1 class="modal-title fs-5" id="detalleModalLabel">Detalle del Empleado</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body" id="modal-body-content" style="justify-items: center;">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
         </div>
+
+        <div class="modal fade" id="modalRol" tabindex="-1" aria-labelledby="rolModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header degradadoFondo">
+                        <h5 class="modal-title" id="modalRolLabel">Gestión de Roles</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body d-flex flex-column justify-content-center align-items-center">
+                        <form id="formRol" method="post" action="/guardarRol" class="row g-3 w-100">
+                            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                            <input type="hidden" name="id" id="id" value="0">
+                            <div class="col-md-6">
+                                <label class="form-label text-black estilo-letra-mascota">Nombre</label>
+                                <input id="nombre" name="nombre" type="text" class="form-control text-black estilo-letra-mascota" placeholder="Ingrese nombre del rol" required>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="estilo-letra-mascota btn btn-primary w-100">Registrar</button>
+                            </div>
+                        </form>
+                        <hr>
+                        <div class="card w-100 mt-3">
+                            <div class="card-header degradadoFondo text-center">
+                                <h5 class="card-title">Lista de Roles</h5>
+                            </div>
+                            <div class="card-body" style="background-color: #212529;">
+                                <div class="table-responsive">
+                                    <table class="table table-dark table-hover w-100" id="tablaRoles">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center text-black estilo-letra-mascota">ID</th>
+                                                <th class="text-center text-black estilo-letra-mascota">Rol</th>
+                                                <th class="text-center text-black estilo-letra-mascota">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="r : ${rolList}">
+                                                <td th:text="${r.id}" class="text-black estilo-letra-mascota"></td>
+                                                <td th:text="${r.nombre}" class="text-black estilo-letra-mascota"></td>
+                                                <td class="text-black estilo-letra-mascota">
+                                                    <a th:href="@{/eliminarRol/} + ${r.id}" class="btn btn-danger btn-sm" onclick="return Eliminar(this)">
+                                                        <img src="../imagenes/eliminar.png" height="20" width="20">
+                                                    </a>
+                                                    <a th:href="@{/formularioRol/} + ${r.id}" class="btn btn-warning btn-sm">
+                                                        <img src="../imagenes/editar.png" height="20" width="20">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>                   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          
     </main>
 
     <footer th:replace="layout :: footer"></footer>
-    
+
+    <script th:src="@{/js/empleado-GestionAdmin.js}"></script>
+          
 </body>
 
 </html>

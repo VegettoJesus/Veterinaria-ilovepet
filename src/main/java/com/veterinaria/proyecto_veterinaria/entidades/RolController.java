@@ -1,86 +1,81 @@
 package com.veterinaria.proyecto_veterinaria.entidades;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.veterinaria.proyecto_veterinaria.paginacion.PageRender;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class RolController {
     @Autowired
     private RolService rolService;
-
-    @GetMapping("/GestionRol")
-    public String listarRoles(@RequestParam(name = "page",defaultValue = "0")int page, Model model){
-        Pageable pageRequest = PageRequest.of(page,7);
-        Page<Rol> rol = rolService.findAll(pageRequest);
-        PageRender<Rol> pageRender = new PageRender<>("/GestionRol",rol);
-        model.addAttribute("rol",rol);
-        model.addAttribute("page",pageRender);
-        return "GestionRol";
-    }
     
-    @GetMapping("/formularioRol")
-    public String registrarRoles(Map<String,Object> modelo){
-        Rol rol = new Rol();
-        modelo.put("rol", rol);
-        modelo.put("titulo","Registrar Rol");
-        return "formularioRol";
-    }
-
-    @PostMapping("/formularioRol")
-    public String guardarRoles(@Valid Rol rol,BindingResult result,Model modelo, RedirectAttributes flash, SessionStatus status){
-        if(result.hasErrors()){
-            modelo.addAttribute("titulo", "Registrar Rol");
-            return "formularioRol";
-        }
-        String mensaje = (rol.getId() != null) ? "El Rol " + rol.getNombre() + " ha sido editado con exito" : "El Rol "+ rol.getNombre() + " ha sido registrado con exito";
-        rolService.save(rol);
-        status.setComplete();
-        flash.addFlashAttribute("success",mensaje);
-        return "redirect:/GestionRol";
-    }
-
-    @GetMapping("/formularioRol/{id}")
-    public String editarRoles(@PathVariable(value = "id") Long id, Map<String,Object> modelo, RedirectAttributes flash){
-        Rol rol = null;
-        if(id > 0){
-            rol = rolService.findOne(id);
-            if(rol == null){
-                flash.addFlashAttribute("error","El ID del rol no existe en la base de datos");
-                return "redirect:/GestionRol";
-            }
-        }else{
-            flash.addFlashAttribute("error","El ID del rol no puede ser cero");
-            return "redirect:/GestionRol";
-        }
+    @GetMapping("/gestionAdmin/roles")
+    @ResponseBody
+    public Map<String, Object> listarRoles() {
+        List<Rol> roles = rolService.findAll(); 
         
-        modelo.put("rol",rol);
-        modelo.put("titulo","Modificar Rol");
-        return "formularioRol";
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", roles); 
+        
+        return response;
+    }
+        
+    @PostMapping("/guardarRol")
+    @ResponseBody
+    public Map<String, Object> guardarRol(@RequestParam("nombre") String nombre, @RequestParam("id") Long id) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            Rol rol;
+            if (id > 0) {
+
+                rol = rolService.findOne(id);
+                if (rol != null) {
+                    rol.setNombre(nombre); 
+                    rolService.save(rol);  
+                } else {
+                    throw new Exception("Rol no encontrado");
+                }
+            } else {
+
+                rol = new Rol(nombre);
+                rolService.save(rol);
+            }
+
+            response.put("status", "success");
+            response.put("message", id > 0 ? "El rol ha sido actualizado correctamente" : "El rol ha sido registrado correctamente");
+            response.put("data", Arrays.asList(rol));
+        } catch (Exception e) {
+            response.put("status", "error");
+            response.put("message", "Hubo un problema al guardar el rol: " + e.getMessage());
+        }
+        return response;
     }
 
     @GetMapping("/eliminarRol/{id}")
-    public String eliminarRoles(@PathVariable(value = "id") Long id, RedirectAttributes flash){
-        if(id > 0){
-            rolService.delete(id);
-            flash.addFlashAttribute("success","Rol eliminado con exito");
+    public @ResponseBody Map<String, Object> eliminarRoles(@PathVariable(value = "id") Long id) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            if (id > 0) {
+                rolService.delete(id);  
+                response.put("status", "success");
+                response.put("message", "Rol eliminado con éxito");
+            } else {
+                response.put("status", "error");
+                response.put("message", "Rol no encontrado");
+            }
+        } catch (Exception e) {
+            response.put("status", "error");
+            response.put("message", "Hubo un problema al eliminar el rol");
         }
-        return "redirect:/GestionRol";
+        return response;
     }
+
 }
