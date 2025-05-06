@@ -91,4 +91,8 @@ public class EmpleadoServiceImpl implements EmpleadoService{
         return empleadoRepository.buscarPorFiltro(filtro, pageable);
     }
     
+    @Override
+    public Page<empleadoLogin> findAllExcludingId1(Pageable pageable){
+        return empleadoRepository.findAllExcludingId1(pageable);
+    }
 }

@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.YearMonth;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,12 +32,16 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lowagie.text.DocumentException;
+import com.veterinaria.proyecto_veterinaria.entidades.HorarioEmpleado;
+import com.veterinaria.proyecto_veterinaria.entidades.HorarioEmpleadoService;
+import com.veterinaria.proyecto_veterinaria.entidades.RegistroAsistenciaService;
 import com.veterinaria.proyecto_veterinaria.entidades.RolService;
 import com.veterinaria.proyecto_veterinaria.paginacion.PageRender;
 
@@ -44,6 +53,12 @@ public class EmpleadoController {
     private EmpleadoService empleadoService;
 
     @Autowired
+    private HorarioEmpleadoService horarioEmpleadoService;
+
+    @Autowired
+    private RegistroAsistenciaService registroAsistenciaService;
+
+    @Autowired
     private RolService rolservice;
 
     @GetMapping({"/","/login",""})
@@ -53,14 +68,32 @@ public class EmpleadoController {
 
     @GetMapping("/detalleEmpleado/modal/{id}")
     @ResponseBody
-    public ResponseEntity<?> obtenerDetalleEmpleado(@PathVariable Long id) {
+    public ResponseEntity<?> obtenerDetalleEmpleado(
+        @PathVariable Long id,
+        @RequestParam(value = "anio", required = false) Integer anio,
+        @RequestParam(value = "mes", required = false) Integer mes) {
+    
+        // Si el año o mes son nulos, se asigna el valor del año y mes actuales
+        if (anio == null) {
+            anio = LocalDate.now().getYear();  // Año actual
+        }
+        if (mes == null) {
+            mes = LocalDate.now().getMonthValue();  // Mes actual
+        }
+    
         empleadoLogin empleado = empleadoService.findOne(id);
         if (empleado == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(empleado);
+    
+        Map<String, Object> response = new HashMap<>();
+        response.put("empleado", empleado);
+        response.put("resumenAsistencia", registroAsistenciaService.obtenerResumenMensualPorEmpleado(id, anio, mes)); // Método actualizado en el servicio
+        response.put("horarios", horarioEmpleadoService.findByEmpleadoId(id));
+    
+        return ResponseEntity.ok(response);
     }
-
+    
     @GetMapping("/gestionAdmin")
     public String listarEmpleados(
             @RequestParam(name = "buscar", required = false) String buscar,
@@ -73,7 +106,7 @@ public class EmpleadoController {
         if (buscar != null && !buscar.trim().isEmpty()) {
             empleados = empleadoService.buscarPorFiltro(buscar, pageRequest);
         } else {
-            empleados = empleadoService.findAll(pageRequest);
+            empleados = empleadoService.findAllExcludingId1(pageRequest);
         }
 
         PageRender<empleadoLogin> pageRender = new PageRender<>("/gestionAdmin?buscar=" + (buscar != null ? buscar : ""), empleados);
@@ -175,24 +208,39 @@ public class EmpleadoController {
         Map<String, Object> response = new HashMap<>();
 
         try {
+            // Obtener el empleado
             empleadoLogin empleado = empleadoService.findOne(id);
 
-            if (empleado != null && empleado.getImagen() != null && !empleado.getImagen().isEmpty()) {
-                
-                Path rutaCarpeta = Paths.get("src/main/resources/static").toAbsolutePath();
-                Path rutaImagen = rutaCarpeta.resolve(empleado.getImagen().substring(1)); 
+            if (empleado != null) {
+                // Eliminar los registros de horario de empleado
+                horarioEmpleadoService.deleteByEmpleado(empleado);
 
-                try {
-                    Files.deleteIfExists(rutaImagen);
-                } catch (IOException e) {
+                // Eliminar los registros de asistencia
+                registroAsistenciaService.deleteByEmpleado(empleado);
+
+                // Eliminar la imagen si existe
+                if (empleado.getImagen() != null && !empleado.getImagen().isEmpty()) {
+                    Path rutaCarpeta = Paths.get("src/main/resources/static").toAbsolutePath();
+                    Path rutaImagen = rutaCarpeta.resolve(empleado.getImagen().substring(1)); 
+                    try {
+                        Files.deleteIfExists(rutaImagen);
+                    } catch (IOException e) {
+                        // Manejo de error si no se puede eliminar la imagen
+                        e.printStackTrace();
+                    }
                 }
+
+                // Eliminar el empleado
+                empleadoService.delete(id);
+
+                response.put("success", true);
+                response.put("message", "Empleado eliminado exitosamente.");
+                response.put("status", "success");
+            } else {
+                response.put("success", false);
+                response.put("message", "Empleado no encontrado.");
+                response.put("status", "error");
             }
-
-            empleadoService.delete(id);
-
-            response.put("success", true);
-            response.put("message", "Empleado eliminado exitosamente.");
-            response.put("status", "success");
 
         } catch (Exception e) {
             response.put("success", false);
@@ -219,6 +267,83 @@ public class EmpleadoController {
         List<empleadoLogin> empleados = empleadoService.findAll();
         EmpleadoExporterPDF exporter = new EmpleadoExporterPDF(empleados);
         exporter.exportar(response);
+    }
+
+    @PostMapping("/registrarHorario")
+    public String registrarHorario(
+            @RequestParam Long empleadoId,
+            @RequestParam("diasSemana[]") List<String> diasSemana,
+            @RequestParam("horaEntrada[]") List<LocalTime> horasEntrada,
+            @RequestParam("horaSalida[]") List<LocalTime> horasSalida,
+            @RequestParam("fechaInicio[]") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) List<LocalDate> fechasInicio,
+            @RequestParam("fechaFin[]") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) List<LocalDate> fechasFin,
+            @RequestParam(value = "descanso", required = false) List<String> diasDescanso,
+            RedirectAttributes redirectAttributes
+    ) {
+        try {
+            empleadoLogin empleado = empleadoService.findOne(empleadoId);
+
+            for (int i = 0; i < diasSemana.size(); i++) {
+                HorarioEmpleado horario = new HorarioEmpleado();
+                horario.setEmpleado(empleado);
+                horario.setDiaSemana(diasSemana.get(i));
+
+                if (diasDescanso != null && diasDescanso.contains(diasSemana.get(i))) {
+                    horario.setHoraEntrada(null);
+                    horario.setHoraSalida(null);
+                } else {
+                    horario.setHoraEntrada(horasEntrada.get(i));
+                    horario.setHoraSalida(horasSalida.get(i));
+                }
+
+                horario.setFechaInicio(fechasInicio.get(i));
+                horario.setFechaFin(fechasFin.get(i));
+                horarioEmpleadoService.save(horario);
+            }
+
+            redirectAttributes.addFlashAttribute("message", "¡Horario registrado correctamente!");
+            redirectAttributes.addFlashAttribute("alertType", "success");
+
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "Hubo un error al registrar el horario.");
+            redirectAttributes.addFlashAttribute("alertType", "error");
+        }
+
+        return "redirect:/gestionAdmin";
+    }
+
+    @GetMapping("/horario/mes/{idEmpleado}")
+    @ResponseBody
+    public List<HorarioEmpleado> listarHorariosDelMes(@PathVariable Long idEmpleado) {
+        YearMonth mesActual = YearMonth.now();
+        LocalDate inicio = mesActual.atDay(1);
+        LocalDate fin = mesActual.atEndOfMonth();
+        
+        return horarioEmpleadoService.findByEmpleadoIdAndFechaInicioBetween(idEmpleado, inicio, fin);
+    }
+
+    @PostMapping("/horario/actualizar")
+    @ResponseBody
+    public ResponseEntity<?> actualizarHorario(@RequestBody Map<String, String> data) {
+        Long id = Long.parseLong(data.get("id"));
+        HorarioEmpleado horario = horarioEmpleadoService.findOne(id);
+
+        if (horario != null) {
+            try {
+                String entrada = data.get("horaEntrada");
+                String salida = data.get("horaSalida");
+
+                horario.setHoraEntrada((entrada == null || entrada.isEmpty()) ? null : LocalTime.parse(entrada));
+                horario.setHoraSalida((salida == null || salida.isEmpty()) ? null : LocalTime.parse(salida));
+
+                horarioEmpleadoService.save(horario);
+                return ResponseEntity.ok().build();
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al parsear las horas");
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Horario no encontrado");
     }
 
 }

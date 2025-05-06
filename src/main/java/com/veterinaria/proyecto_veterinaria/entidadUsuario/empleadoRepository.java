@@ -9,11 +9,15 @@ import org.springframework.data.jpa.repository.Query;
 public interface empleadoRepository extends PagingAndSortingRepository<empleadoLogin,Long>{
     public empleadoLogin findByEmail(String email);
     public empleadoLogin findByUsuario(String username);
-    @Query("SELECT e FROM empleadoLogin e WHERE " +
-           "LOWER(e.nombre) LIKE LOWER(CONCAT('%', :filtro, '%')) OR " +
-           "LOWER(e.apellido) LIKE LOWER(CONCAT('%', :filtro, '%')) OR " +
-           "LOWER(e.dni) LIKE LOWER(CONCAT('%', :filtro, '%')) OR " +
-           "LOWER(e.usuario) LIKE LOWER(CONCAT('%', :filtro, '%')) OR " +
-           "LOWER(e.email) LIKE LOWER(CONCAT('%', :filtro, '%'))")
+    @Query("SELECT e FROM empleadoLogin e WHERE e.id <> 1 AND (" +
+       "LOWER(e.nombre) LIKE LOWER(CONCAT('%', :filtro, '%')) OR " +
+       "LOWER(e.apellido) LIKE LOWER(CONCAT('%', :filtro, '%')) OR " +
+       "LOWER(e.dni) LIKE LOWER(CONCAT('%', :filtro, '%')) OR " +
+       "LOWER(e.usuario) LIKE LOWER(CONCAT('%', :filtro, '%')) OR " +
+       "LOWER(e.email) LIKE LOWER(CONCAT('%', :filtro, '%')))")
     Page<empleadoLogin> buscarPorFiltro(@Param("filtro") String filtro, Pageable pageable);
+
+    @Query("SELECT e FROM empleadoLogin e WHERE e.id <> 1")
+    Page<empleadoLogin> findAllExcludingId1(Pageable pageable);
+
 }

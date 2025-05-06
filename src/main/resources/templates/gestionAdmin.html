@@ -54,20 +54,38 @@
                                         <td class="text-black estilo-letra-mascota" th:text="${empleado.usuario}"></td>
                                         <td class="text-black estilo-letra-mascota" th:text="${empleado.email}"></td>
                                         <td>
+                                            <!-- Ver detalle -->
                                             <button type="button" class="btn btn-primary btn-detalle-empleado"
-                                                    th:attr="data-id=${empleado.id}">
-                                                    <img src="../imagenes/buscar.png" alt="ver" height="30" width="30">
+                                                    th:attr="data-id=${empleado.id}" title="Ver Detalle">
+                                              <i class="bi bi-search"></i>
                                             </button>
-                                                                                                    
-                                            <a class="btn btn-danger me-1 btn-eliminar-empleado" 
-                                                th:attr="data-id=${empleado.id}">
-                                                <img src="../imagenes/eliminar.png" alt="eliminar" height="30" width="30">
+                                          
+                                            <!-- Eliminar empleado -->
+                                            <a class="btn btn-danger me-1 btn-eliminar-empleado"
+                                               th:attr="data-id=${empleado.id}" title="Eliminar">
+                                              <i class="bi bi-trash"></i>
                                             </a>
-
-                                            <a id="btnEditar" th:href="@{/formularioEmpleado/} + ${empleado.id}" class="btn btn-warning me-1">
-                                                <img src="../imagenes/editar.png" alt="editar" height="30" width="30">
+                                          
+                                            <!-- Editar empleado -->
+                                            <a id="btnEditar" th:href="@{/formularioEmpleado/} + ${empleado.id}"
+                                               class="btn btn-warning me-1" title="Editar">
+                                              <i class="bi bi-pencil-square"></i>
                                             </a>
-                                        </td>
+                                          
+                                            <!-- Registrar horario -->
+                                            <button class="btn btn-secondary estilo-letra-mascota"
+                                                    th:onclick="'abrirModalHorario(' + '\'' + ${empleado.id} + '\'' + ')'"
+                                                    title="Registrar Horario">
+                                              <i class="bi bi-clock-history"></i>
+                                            </button>
+                                          
+                                            <!-- Detalle horario -->
+                                            <button class="btn btn-info estilo-letra-mascota"
+                                                    th:onclick="'detalleModalHorario(' + '\'' + ${empleado.id} + '\'' + ')'"
+                                                    title="Ver Horario">
+                                              <i class="bi bi-calendar-check"></i>
+                                            </button>
+                                          </td>                                          
                                     </tr>
                                 </tbody>
                             </table>
@@ -79,21 +97,25 @@
             </div>
         </div>    
         
+        <!-- Modal -->
         <div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-               <div class="modal-dialog modal-lg modal-dialog-centered">
-              <div class="modal-content">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
                 <div class="modal-header degradadoFondo">
-                  <h1 class="modal-title fs-5" id="detalleModalLabel">Detalle del Empleado</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    <h1 class="modal-title fs-5" id="detalleModalLabel">Detalle del Empleado</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
-                <div class="modal-body" id="modal-body-content" style="justify-items: center;">
+                <div class="modal-body"  style="justify-items: center;">
+                    <div id="modal-body-content" class="w-100"></div>
+                    <div id="modal-body-content2" class="w-100"></div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
-              </div>
+            </div>
             </div>
         </div>
+ 
 
         <div class="modal fade" id="modalRol" tabindex="-1" aria-labelledby="rolModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -151,9 +173,140 @@
                 </div>
             </div>
         </div>
+        
+        <div class="modal fade" id="modalHorario" tabindex="-1" aria-labelledby="modalHorarioLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg"> 
+                <div class="modal-content">
+                    <div class="modal-header degradadoFondo">
+                        <h5 class="modal-title" id="modalHorarioLabel">Registrar Horario del Empleado</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <form th:action="@{/registrarHorario}" method="post">
+                        <div class="modal-body" style="background-color: #212529;">
+                            <input type="hidden" name="empleadoId" id="empleadoIdSeleccionado">
+        
+                            <div class="table-responsive">
+                                <table class="table table-dark table-hover w-100">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center text-black estilo-letra-mascota">Día</th>
+                                            <th class="text-center text-black estilo-letra-mascota">Hora Entrada</th>
+                                            <th class="text-center text-black estilo-letra-mascota">Hora Salida</th>
+                                            <th class="text-center text-black estilo-letra-mascota">Fecha Inicio</th>
+                                            <th class="text-center text-black estilo-letra-mascota">Fecha Fin</th>
+                                            <th class="text-center text-black estilo-letra-mascota">Día de Descanso</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-black estilo-letra-mascota">Lunes<input type="hidden" name="diasSemana[]" value="Lunes"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaEntrada[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaSalida[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaInicio[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaFin[]"></td>
+                                            <td class="text-black estilo-letra-mascota" style="text-align-last: center;"><input type="checkbox" class="form-check-input descanso-checkbox" data-dia="Lunes" name="descanso[]"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-black estilo-letra-mascota">Martes<input type="hidden" name="diasSemana[]" value="Martes"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaEntrada[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaSalida[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaInicio[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaFin[]"></td>
+                                            <td class="text-black estilo-letra-mascota" style="text-align-last: center;"><input type="checkbox" class="form-check-input descanso-checkbox" data-dia="Martes" name="descanso[]"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-black estilo-letra-mascota">Miércoles<input type="hidden" name="diasSemana[]" value="Miércoles"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaEntrada[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaSalida[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaInicio[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaFin[]"></td>
+                                            <td class="text-black estilo-letra-mascota" style="text-align-last: center;"><input type="checkbox" class="form-check-input descanso-checkbox" data-dia="Miercoles" name="descanso[]"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-black estilo-letra-mascota">Jueves<input type="hidden" name="diasSemana[]" value="Jueves"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaEntrada[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaSalida[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaInicio[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaFin[]"></td>
+                                            <td class="text-black estilo-letra-mascota" style="text-align-last: center;"><input type="checkbox" class="form-check-input descanso-checkbox" data-dia="Jueves" name="descanso[]"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-black estilo-letra-mascota">Viernes<input type="hidden" name="diasSemana[]" value="Viernes"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaEntrada[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaSalida[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaInicio[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaFin[]"></td>
+                                            <td class="text-black estilo-letra-mascota" style="text-align-last: center;"><input type="checkbox" class="form-check-input descanso-checkbox" data-dia="Viernes" name="descanso[]"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-black estilo-letra-mascota">Sábado<input type="hidden" name="diasSemana[]" value="Sábado"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaEntrada[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaSalida[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaInicio[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaFin[]"></td>
+                                            <td class="text-black estilo-letra-mascota" style="text-align-last: center;"><input type="checkbox" class="form-check-input descanso-checkbox" data-dia="Sabado" name="descanso[]"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-black estilo-letra-mascota">Domingo<input type="hidden" name="diasSemana[]" value="Domingo"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaEntrada[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="time" class="form-control" name="horaSalida[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaInicio[]"></td>
+                                            <td class="text-black estilo-letra-mascota"><input type="date" class="form-control" name="fechaFin[]"></td>
+                                            <td class="text-black estilo-letra-mascota" style="text-align-last: center;"><input type="checkbox" class="form-check-input descanso-checkbox" data-dia="Domingo" name="descanso[]"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+        
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Guardar Horario</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="detalleModalHorario" tabindex="-1" aria-labelledby="detalleModalHorarioLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header degradadoFondo">
+                  <h5 class="modal-title estilo-letra-mascota" id="modalHorarioLabel">Horarios del Mes</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body" style="background-color: #212529;">
+                  <div id="contenedorHorarios">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
           
+        <div id="toastData"
+         th:data-message="${message}"
+         th:data-type="${alertType}"></div>
     </main>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const toastDiv = document.getElementById('toastData');
+            const message = toastDiv.getAttribute('data-message');
+            const type = toastDiv.getAttribute('data-type');
+
+            if (message) {
+                Swal.fire({
+                    icon: type || 'info',
+                    title: message,
+                    timer: 2500,
+                    showConfirmButton: false,
+                    toast: true,
+                    position: 'top-end'
+                });
+            }
+        });
+    </script>
     <footer th:replace="layout :: footer"></footer>
 
     <script th:src="@{/js/empleado-GestionAdmin.js}"></script>

@@ -15,5 +15,5 @@ public interface EmpleadoService extends UserDetailsService{
     public void delete(Long id);
     public empleadoLogin findByEmail(String email);
     public Page<empleadoLogin> buscarPorFiltro(String filtro, Pageable pageable);
-
+    public Page<empleadoLogin> findAllExcludingId1(Pageable pageable);
 }

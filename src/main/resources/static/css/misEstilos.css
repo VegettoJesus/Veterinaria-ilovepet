@@ -955,3 +955,9 @@ footer .huellitas {
     font-family: 'letra-mascotas' !important;
     font-weight: bolder !important;
 }
+input.form-control[readonly] {
+    background-color: var(--bs-secondary-bg); 
+    color: var(--bs-secondary-color); 
+    cursor: not-allowed;
+  }
+  
